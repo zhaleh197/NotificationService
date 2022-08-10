@@ -1,0 +1,3 @@
+obj\Release\net6.0\Protos/Smsgrpc.cs \
+obj\Release\net6.0\Protos/SmsgrpcGrpc.cs: C:/Users/Tech-8/.nuget/packages/grpc.tools/2.45.0/build/native/include/google/protobuf/timestamp.proto\
+ Protos/smsgrpc.proto

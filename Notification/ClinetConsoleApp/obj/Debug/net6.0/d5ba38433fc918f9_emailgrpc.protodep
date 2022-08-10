@@ -1,0 +1,2 @@
+obj\Debug\net6.0/Emailgrpc.cs \
+obj\Debug\net6.0/EmailgrpcGrpc.cs: ../ServerGRPCNotification/Protos/emailgrpc.proto

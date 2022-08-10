@@ -1,0 +1,29 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcNotification";
+package emailGrpc;
+
+
+service EmailGrpc {
+  // Sends a greeting
+    rpc SendEmailGrpc (EmailRequest) returns (EmailResponce);
+
+    //rpc GetQeueUserSMS(Empty) returns(ListResultGetQeueUserSMS1);
+   // rpc GetUserSMS(Empty) returns(ListResultGetUserSMS1);
+
+    //rpc Post(Product) returns(Product);
+    //rpc Put(Product) returns(Product);
+    //rpc Delete(ProductRowIdFilter) returns(Empty);
+
+}
+ 
+//message Empty {}
+
+// The request message containing the user's name.
+message EmailRequest {
+  string to = 1;
+  string txt = 2;
+}
+message EmailResponce {
+  bool res  = 1;
+}
+

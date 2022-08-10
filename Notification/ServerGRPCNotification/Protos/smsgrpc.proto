@@ -1,0 +1,76 @@
+syntax = "proto3";  
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "ServerGRPCNotification";
+package smsgrpc;
+
+service SMSGrpcs {
+  // Sends a greeting
+    rpc SendSMSGrpc (SMSRequest) returns (SMSresponse);
+
+    rpc GetQeueUserSMS(Empty) returns(ListResultGetQeueUserSMS1);
+    rpc GetUserSMS(Empty) returns(ListResultGetUserSMS1);
+    
+   // rpc PostUserSMS(ResultGetUserSMS1) returns(Resultpostsms);
+
+    //rpc Post(Product) returns(Product);
+    //rpc Put(Product) returns(Product);
+    //rpc Delete(ProductRowIdFilter) returns(Empty);
+
+
+}
+ 
+
+//////GET 
+message Empty {
+
+}
+
+// The request message containing the user's name.
+message SMSRequest {
+  string to = 1;
+  string txt = 2;
+}
+message SMSresponse {
+  bool res  = 1;
+}
+
+message ResultGetQeueUserSMS1 {
+
+    int64 Id = 1; 
+    int64 IdUser = 2;
+    repeated string Resiver = 3;
+   // repeated ListResivers Resivers = 3;
+    string Body = 4;
+    google.protobuf.Timestamp DateSendStart = 5;
+    string Periority = 6;
+    string Type = 7;
+}
+message ListResultGetQeueUserSMS1 {
+    repeated ResultGetQeueUserSMS1 items =1;
+}
+message ListResivers {
+    string Resiver = 1;
+}
+
+message ResultGetUserSMS1 {
+    int64 Id = 1; 
+    int64 IdUser = 2;
+    repeated string Resiver = 3;
+    // repeated ListResivers Resivers = 3;
+    string Body = 4;
+    google.protobuf.Timestamp DateSend = 5;
+    google.protobuf.Timestamp DateDelivere = 6;
+    string Status = 7;
+}
+message ListResultGetUserSMS1 {
+    repeated ResultGetUserSMS1 items =1;
+}
+///////////
+
+///Post
+message Resultpostsms {
+    int32 result=1;
+}
+
+////////
