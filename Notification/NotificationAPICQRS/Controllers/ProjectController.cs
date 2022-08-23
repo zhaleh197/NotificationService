@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Service.User.Proj;
 using Notification.Application.Service.WriteRepository.User.Proj.Kat;
 using Notification.Application.Service.WriteRepository.User.Proj.Kat.SarKhat;
@@ -7,6 +8,7 @@ namespace NotificationAPICQRS.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    //[Authorize]
     public class ProjectController : Controller
     {
          

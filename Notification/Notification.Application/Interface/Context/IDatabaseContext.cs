@@ -7,6 +7,7 @@ using Notification.Domain.Entities.SMS;
 using Notification.Domain.Entities.SMS.Common;
 using Notification.Domain.Entities.SMS.QeueSend;
 using Notification.Domain.Entities.SMS.SMS;
+using Notification.Domain.Entities.WriteModels.Common.BlackList;
 using Notification.Domain.Entities.WriteModels.SMS.QeueSend;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,7 @@ namespace Notification.Application.Interface.Context
         //14010503
         public DbSet<QeueofSMS> QeueofSMs { get; set; }
 
+        public DbSet<SpamWords> SpamWords { get; set; }
 
 
 

@@ -23,8 +23,14 @@ namespace Notification.Application.Service.ReadRepository.User
         {
             return base.DeleteAsync(s => s.IdUser == IdUser, cancellationToken);
         }
+
+        public Task EditUser(SMSUser D, long IdUser, CancellationToken cancellationToken = default)
+        {
+            return base.UpdateAsync(D, s => s.IdUser == IdUser, cancellationToken);
         }
-    
+
+    }
+
 
 }
 

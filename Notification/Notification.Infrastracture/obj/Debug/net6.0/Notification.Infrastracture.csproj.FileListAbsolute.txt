@@ -34,3 +34,15 @@ C:\Users\Tech-8\source\repos\CQRSNotificationService14010421\Notification\Notifi
 C:\Users\Tech-8\source\repos\CQRSNotificationService14010421\Notification\Notification.Infrastracture\obj\Debug\net6.0\refint\Notification.Infrastracture.dll
 C:\Users\Tech-8\source\repos\CQRSNotificationService14010421\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.pdb
 C:\Users\Tech-8\source\repos\CQRSNotificationService14010421\Notification\Notification.Infrastracture\obj\Debug\net6.0\ref\Notification.Infrastracture.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\bin\Debug\net6.0\Notification.Infrastracture.deps.json
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\bin\Debug\net6.0\Notification.Infrastracture.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\bin\Debug\net6.0\Notification.Infrastracture.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.csproj.AssemblyReference.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.AssemblyInfoInputs.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.AssemblyInfo.cs
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.csproj.CoreCompileInputs.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\refint\Notification.Infrastracture.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\Notification.Infrastracture.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Infrastracture\obj\Debug\net6.0\ref\Notification.Infrastracture.dll

@@ -17,7 +17,8 @@ namespace Notification.Application.ApplicationbyMediator.Common.BaseChannel
             _serviceChannel = Channel.CreateBounded<TMessage>(new BoundedChannelOptions(4000)
             {
                 SingleReader = false,
-                SingleWriter = false
+                SingleWriter = false,
+                FullMode = BoundedChannelFullMode.Wait
             });
         }
 
@@ -25,6 +26,7 @@ namespace Notification.Application.ApplicationbyMediator.Common.BaseChannel
         public async Task AddToChannelAsync(TMessage model, CancellationToken cancellationToken)
         {
             await _serviceChannel.Writer.WriteAsync(model, cancellationToken);
+             
         }
 
 
@@ -32,9 +34,13 @@ namespace Notification.Application.ApplicationbyMediator.Common.BaseChannel
         {
             return _serviceChannel.Reader.ReadAllAsync(cancellationToken);
         }
-        //public IAsyncEnumerable<TMessage> ReturnValue(CancellationToken cancellationToken)
+       
+        //public int count(CancellationToken cancellationToken)
         //{
-        //    return _serviceChannel.Reader.ReadAllAsync(cancellationToken);
+        //    int i = 0; 
+        //    foreach (var item in ReturnValue(cancellationToken))
+        //        i++;
+        //    return i;
         //}
 
 

@@ -46,7 +46,7 @@ namespace Notification.Domain.Entities.SMS.QeueSend
 
 
         public DateTime DateSendStart { get; set; }
-        public string Periority { get; set; }//high/low/mediom
+        public int Periority { get; set; }//high/low/mediom
         public string Type { get; set; }//??user/phone
 
 

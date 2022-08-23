@@ -23,6 +23,8 @@ namespace Notification.Domain.Entities.SMS.SMS
         public string Resiver { get; set; }
         public DateTime DateSend { get; set; }
         public DateTime DateDelivere { get; set; }
+        public int Deliverd { get; set; }
+        
         public string SendStatus { get; set; }
 
     }

@@ -10,5 +10,6 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Commands
     public class UserOfSMS
     {
         public long Iduser { get; set; }
+        public string PhoneUser { get; set; }
     }
 }

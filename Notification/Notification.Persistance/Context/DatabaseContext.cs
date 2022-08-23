@@ -24,6 +24,7 @@ using Notification.Domain.Entities.SMS.SMS;
 using Notification.Domain.Entities.SMS.QeueSend;
 using Notification.Domain.Entities.Common;
 using Notification.Domain.Entities.WriteModels.SMS.QeueSend;
+using Notification.Domain.Entities.WriteModels.Common.BlackList;
 
 namespace Notification.Persistance.Context
 {
@@ -92,6 +93,8 @@ namespace Notification.Persistance.Context
 
         //14010503
         public DbSet<QeueofSMS> QeueofSMs { get; set; }
+        public DbSet<SpamWords> SpamWords { get; set; }
+
 
 
 
@@ -123,6 +126,19 @@ namespace Notification.Persistance.Context
                      new Usertype { Id = 1, Title = "Real", InsertTime = DateTime.Now, IsRemoved = false },
                      new Usertype { Id = 2, Title = "Legal", InsertTime = DateTime.Now, IsRemoved = false }
                      );
+            modelBuilder.Entity<SpamWords>()
+                  .HasData(
+                   new SpamWords { Id = 1,Word="Daesh"},
+                   new SpamWords { Id = 2, Word = "داعش" },
+                   new SpamWords { Id = 3, Word = "جنبش" },
+                   new SpamWords { Id = 4, Word = "دموکرات" },
+                   new SpamWords { Id = 5, Word = "اوجالان" },
+                   new SpamWords { Id = 6, Word = "قاضی" },
+                   new SpamWords { Id =7, Word = "Demokrat" },
+                   new SpamWords { Id = 8, Word = "Ghazi" },
+                   new SpamWords { Id =9, Word = "Komala" },
+                   new SpamWords { Id = 10, Word = "Dolat" }
+                 );
         }
 
 

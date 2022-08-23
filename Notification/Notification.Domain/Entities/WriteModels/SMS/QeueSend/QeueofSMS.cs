@@ -40,7 +40,7 @@ namespace Notification.Domain.Entities.WriteModels.SMS.QeueSend
 
         public string dateofLimitet { get; set; }
 
-        public string periority { get; set; }//hidh-normal
+        public int periority { get; set; }//hidh-normal
         public string periodSendly { get; set; }// none-diaily- hourly- mounthly- yearly
 
  

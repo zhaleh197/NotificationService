@@ -9,15 +9,17 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Commands
     public class SchaduleSendSMS
     {
         //public DateOnly dateOfsend { get; set; }
-        public DateTime dateOfsend { get; set; }//but only date
+       // public DateTime dateOfsend { get; set; }//but only date
+        public string dateOfsend { get; set; }//but only date
         //public TimeSpan timeOfsend { get; set; }
-        public DateTime timeOfsend { get; set; }//but only time
+        //public DateTime timeOfsend { get; set; }//but only time
+        public string timeOfsend { get; set; }//but only time
         public DateTime dateofLimitet { get; set; }
         //public string dateOfsend { get; set; }
         //public string timeOfsend { get; set; }
 
         //public string dateofLimitet { get; set; }
-        public  string periority  { get; set; }//hidh-normal
+        public  int periority  { get; set; }//hidh-normal
         public string periodSendly { get; set; }// none-diaily- hourly- mounthly- yearly
     }
 }

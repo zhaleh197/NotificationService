@@ -12,6 +12,6 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
         public ResponceGetQeueSMSmodel GetsSMSinQbyId(long Id );
         public long DeleteSMSinQbyId(long Id);
        //public ResponceGetQeueSMSmodel UpdateSMSinQbyId(long Id,DateOnly dateESeralJadid, TimeOnly timeESeralJadid);
-        public ResponceGetQeueSMSmodel UpdateSMSinQbyIdF(long Id, DateOnly dateESeralJadid, TimeSpan timeESeralJadid);
+        public ResponceGetQeueSMSmodel UpdateSMSinQbyIdF(long Id, DateOnly dateESeralJadid, string timeESeralJadid);
     }
 }

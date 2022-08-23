@@ -149,9 +149,10 @@ namespace Notification.Application.Service.SMS.Queris.Post
                     IdSMS = ressuulltt.Entity.Id,
                     DateSend = request.DateSend, 
                     DateDelivere = request.DateDelivere,
+                    Deliverd=request.Delivered,
                     //Resiver = resiver,
                     Resiver = request.Resiver,
-                    SendStatus = "", 
+                    SendStatus = request.Status, 
                     }
                 );
 

@@ -31,12 +31,25 @@ using Notification.Application.Service.WriteRepository.SMS.Queris.GetQ;
 using Notification.Application.Service.User.Doc;
 using Notification.Application.ApplicationbyMediator.SMSApplication.Commands.Add.QeueSMS;
 using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.GetQSMS;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+//builder.Services.AddSingleton<IHostedService, ApacheKafkaConsumerService>(); 
 builder.Services.AddControllers();
+
+builder.Services.AddAuthentication("Bearer")
+       .AddJwtBearer("Bearer", options =>
+       {
+           options.Authority = "https://localhost:7254";
+           options.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateAudience = false
+           };
+       });
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -51,6 +64,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavi
 
 
 /// ////////////////////////////////////
+
 
 
 /////////
@@ -166,6 +180,24 @@ builder.Services.AddSwaggerGen(c =>
 /// </summary>
 var app = builder.Build();
 
+app.UseRouting(); 
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+
+
 /////////////////
 #region Swagger
 app.UseSwagger();
@@ -178,15 +210,15 @@ app.UseSwaggerUI(c =>
 ///  
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

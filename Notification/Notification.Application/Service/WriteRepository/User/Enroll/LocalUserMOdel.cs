@@ -9,7 +9,7 @@ namespace Notification.Application.Service.User.Enroll
     public class LocalUserMOdel
     {
         public long IdUser { get; set; }
-
+        public string Phone { get; set; }
         public long IdUsertype  { get; set; }
 
         public long IdPackagetariffSMS { get; set; }

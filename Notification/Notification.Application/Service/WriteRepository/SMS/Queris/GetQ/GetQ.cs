@@ -32,14 +32,14 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
             var res = _context.QeueofSMs.ToList().Select
                (us => new ResponceGetQeueSMSmodel
                {
-                   dateOfsend=Convert.ToDateTime( us.dateOfsend),
-                   dateofLimitet= Convert.ToDateTime(us.dateofLimitet),
+                   dateOfsend=Convert.ToDateTime( us.dateOfsend).ToString(),
+                   dateofLimitet= Convert.ToDateTime(us.dateofLimitet).ToString(),
                    to=us.to,
                    IdUser=us.IdUser,
                    periodSendly=us.periodSendly,
                    periority=us.periority,
                    //timeOfsend=TimeSpan.Parse(us.timeOfsend),
-                   timeOfsend = DateTime.Parse(us.timeOfsend),
+                   timeOfsend = DateTime.Parse(us.timeOfsend).ToString(),
                    Id =us.Id,
                    txt=us.txt,
                    TypeofResiver=us.TypeofResiver,
@@ -55,20 +55,20 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
             var res = _context.QeueofSMs.Where(q => q.Id == Id).FirstOrDefault();
             return new ResponceGetQeueSMSmodel { 
                 Id= res.Id,
-            dateofLimitet=Convert.ToDateTime( res.dateofLimitet),
+            dateofLimitet=Convert.ToDateTime( res.dateofLimitet).ToString(),
                 //dateOfsend=DateOnly.FromDateTime( res.dateOfsend),
-            dateOfsend = Convert.ToDateTime(res.dateOfsend),
+            dateOfsend = Convert.ToDateTime(res.dateOfsend).ToString(),
              
             IdUser =res.IdUser,
             periodSendly=res.periodSendly,
             periority=res.periority,
             //timeOfsend=TimeOnly.FromTimeSpan( res.timeOfsend),
-            timeOfsend = DateTime.Parse(res.timeOfsend),
+            timeOfsend = DateTime.Parse(res.timeOfsend).ToString(),
             to =res.to,
             txt=res.txt,
             TypeofResiver=res.TypeofResiver};
         }
-        public ResponceGetQeueSMSmodel UpdateSMSinQbyIdF(long Id, DateOnly dateESeralJadid, TimeSpan timeESeralJadid)
+        public ResponceGetQeueSMSmodel UpdateSMSinQbyIdF(long Id, DateOnly dateESeralJadid, string timeESeralJadid)
         {
             var res = _context.QeueofSMs.SingleOrDefault(b => b.Id == Id);
             if (res != null)
@@ -80,13 +80,13 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
             return new ResponceGetQeueSMSmodel
             {
                 Id = res.Id,
-                dateofLimitet =Convert.ToDateTime( res.dateofLimitet),
-                dateOfsend = Convert.ToDateTime( res.dateOfsend).Date,
+                dateofLimitet =Convert.ToDateTime( res.dateofLimitet).ToString(),
+                dateOfsend = Convert.ToDateTime( res.dateOfsend).Date.ToString(),
                 IdUser = res.IdUser,
                 periodSendly = res.periodSendly,
                 periority = res.periority,
                 //timeOfsend = TimeSpan.Parse(res.timeOfsend),
-                timeOfsend = DateTime.Parse(res.timeOfsend),
+                timeOfsend = DateTime.Parse(res.timeOfsend).ToString(),
                 to = res.to,
                 txt = res.txt,
                 TypeofResiver = res.TypeofResiver

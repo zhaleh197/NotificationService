@@ -170,6 +170,10 @@ namespace Notification.Persistance.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
 
@@ -217,14 +221,14 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9575),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1457),
                             IsRemoved = false,
                             Title = "Real"
                         },
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9579),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1462),
                             IsRemoved = false,
                             Title = "Legal"
                         });
@@ -733,7 +737,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9484),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1358),
                             IsRemoved = false,
                             PricePackage = 100000L,
                             TitlePackage = "Golden"
@@ -741,7 +745,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9494),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1365),
                             IsRemoved = false,
                             PricePackage = 75000L,
                             TitlePackage = "Silver"
@@ -749,7 +753,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9498),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1369),
                             IsRemoved = false,
                             PricePackage = 50000L,
                             TitlePackage = "Bronze"
@@ -804,7 +808,7 @@ namespace Notification.Persistance.Migrations
                             FarsiTariff = "30",
                             IdPackageSMS = 1L,
                             IdSarKhat = 1L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9190),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1001),
                             IsRemoved = false
                         },
                         new
@@ -814,7 +818,7 @@ namespace Notification.Persistance.Migrations
                             FarsiTariff = "40",
                             IdPackageSMS = 2L,
                             IdSarKhat = 2L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9197),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1008),
                             IsRemoved = false
                         },
                         new
@@ -824,7 +828,7 @@ namespace Notification.Persistance.Migrations
                             FarsiTariff = "50",
                             IdPackageSMS = 3L,
                             IdSarKhat = 3L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9202),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1081),
                             IsRemoved = false
                         });
                 });
@@ -897,7 +901,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9532),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1410),
                             IsRemoved = false,
                             SarKhatNumber = "1000",
                             Spacial = true
@@ -905,7 +909,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9536),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1415),
                             IsRemoved = false,
                             SarKhatNumber = "2000",
                             Spacial = false
@@ -913,7 +917,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2022, 8, 2, 15, 49, 57, 467, DateTimeKind.Local).AddTicks(9540),
+                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1419),
                             IsRemoved = false,
                             SarKhatNumber = "3000",
                             Spacial = false
@@ -978,9 +982,8 @@ namespace Notification.Persistance.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Periority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Periority")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
@@ -1061,6 +1064,9 @@ namespace Notification.Persistance.Migrations
 
                     b.Property<DateTime>("DateSend")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Deliverd")
+                        .HasColumnType("int");
 
                     b.Property<long>("IdSMS")
                         .HasColumnType("bigint");
@@ -1163,6 +1169,23 @@ namespace Notification.Persistance.Migrations
                     b.ToTable("SMSClients");
                 });
 
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.BlackList.SpamWords", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Word")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpamWords");
+                });
+
             modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.QeueSend.QeueofSMS", b =>
                 {
                     b.Property<long>("Id")
@@ -1201,9 +1224,8 @@ namespace Notification.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("periority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("periority")
+                        .HasColumnType("int");
 
                     b.Property<string>("timeOfsend")
                         .IsRequired()

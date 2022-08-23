@@ -7,6 +7,7 @@ using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundW
 using Notification.Application.Service.ReadRepository.User;
 //using Notification.Application.Service.SMS.Queris.Get;
 using Notification.Application.Service.SMS.Queris.Post;
+using Notification.Application.Service.User.Doc;
 using Notification.Application.Service.User.Enroll;
 using Notification.Domain.Entities.ReadModels;
 using System;
@@ -39,14 +40,16 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Backgro
                 using var scope = _serviceProvider.CreateScope();
 
                 var writeRepository = scope.ServiceProvider.GetRequiredService<ILocalUser>();
-               // var writeRepository = scope.ServiceProvider.GetRequiredService<IPostSMS>();
+                var UserDoc = scope.ServiceProvider.GetRequiredService<IUserDoc>();
                 var readRepository = scope.ServiceProvider.GetRequiredService<ReadSMSUser>();
                 try
                 {
                     await foreach (var item in _readModelChannel.ReturnValue(stoppingToken))
                     {
+                        string path = "";
                         var user =  writeRepository.GetuserbyIduser(item.IdUSer, stoppingToken);
-
+                        var doc = UserDoc.getDocpathbyIDUser(user.Id);
+                        if (doc != null) path = doc.path;
                         if (user != null)
                         {
                             await readRepository.AddAsync(new SMSUser
@@ -60,7 +63,9 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Backgro
                                 Spacial=false,
                                 TitlePackage=user.PackageTariff.PackageSMS.TitlePackage,
                                 TitleUsertype=user.USerType.Title,
-                                
+                                Phone=user.Phone,
+                                PathDocs=path,
+
                             }, stoppingToken);
                         }
                     }

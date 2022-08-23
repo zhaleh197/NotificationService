@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Confluent.Kafka;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Notification.Application.ApplicationbyMediator.Common.BaseChannel;
@@ -10,7 +12,9 @@ using Notification.Application.Service.WriteRepository.SMS.Queris.GetQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.GetQSMS
@@ -21,7 +25,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
         private readonly ChannelQueue<SMSAddedinQueue> _checkQueueSMSModelChannel;
         private readonly ILogger<CheckQueueSMSWorker> _logger;
         private readonly IServiceProvider _serviceProvider;
-
+       // private readonly IDistributedCache _cacheRedis;
 
         private readonly ChannelQueue<OnceMessage> _channelOnce;
         private readonly ChannelQueue<WeeklyMessage> _channelWeekly;
@@ -35,7 +39,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
 
         public CheckQueueSMSWorker(
             ChannelQueue<SMSAddedinQueue> checkQueueSMSModelChannel,
-           
+          // IDistributedCache cacheRedis,
             ILogger<CheckQueueSMSWorker> logger,
             IServiceProvider serviceProvider
             , ChannelQueue<OnceMessage> channelOnce
@@ -49,7 +53,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             _checkQueueSMSModelChannel = checkQueueSMSModelChannel;
             _logger = logger;
             _serviceProvider = serviceProvider;
-
+           // _cacheRedis = cacheRedis;
             _channelWeekly = channelWeekly;
             _channelAnnual = channelAnnual;
             _channelDaily = channelDaily;
@@ -58,6 +62,38 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             _channelhourly = channelhourly;
         }
         bool validation = false;
+
+        private async Task<bool> SendOrderRequest (string topic, string message)
+        {
+            ProducerConfig config = new ProducerConfig
+            {
+                BootstrapServers = "localhost:9092",
+                ClientId = Dns.GetHostName()
+            };
+
+            try
+            {
+                using (var producer = new ProducerBuilder
+                <Null, string>(config).Build())
+                {
+                    var result = await producer.ProduceAsync
+                    (topic, new Message<Null, string>
+                    {
+                        Value = message
+                    });
+
+                    //Debug.WriteLine($"Delivery Timestamp:{ result.Timestamp.UtcDateTime} ");
+                    return await Task.FromResult(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occured: {ex.Message}");
+            }
+
+            return await Task.FromResult(false);
+        }
+     
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -70,30 +106,51 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                // var readRepository = scope.ServiceProvider.GetRequiredService<ReadSMSUser>();
                 try
                 {
-
                     /////////////////////////////////////////////////////
                     //فقط یک بار دیتا را از صف ارسال بخواند و در چنل قرار دهد.
                     while (!validation)
                     {
                         //1. get of DB
                         var resultall = writeRepository.GetQeueUserSMS();
-                        //2.Add _checkQueueSMSModelChannel
-                        for (int i = 0; i < resultall.Count; i++)// 
+                         
+                        //2.Sort Data based Prtiority--- 
+                        //نمیشود سورت کرد. زیرا با ورود دیتای جدید نمیتاون چنل را اپدیت کرد.
+                        
+
+                         //2.Add _checkQueueSMSModelChannel
+                            for (int i = 0; i < resultall.Count; i++)// 
                         {
                             await _checkQueueSMSModelChannel.AddToChannelAsync(new SMSAddedinQueue { IdSMSinQueu = resultall[i].Id }, stoppingToken);
                         }
                         //3.  validation = true
                         validation = true;
                     }
+                    
+
                     /////////////////////////////////////////////////////
                     await foreach (var item in _checkQueueSMSModelChannel.ReturnValue(stoppingToken))
                     {
                         var smsinq = writeRepository.GetsSMSinQbyId(item.IdSMSinQueu);
                         //var user = readRepository.GetByUSerIdAsync(smsinq.IdUser);
+
+                       // string topic = smsinq.periodSendly; 
+
+
+
                         if (smsinq != null)
                         {
                             if (smsinq.periodSendly == "Once")
                             {
+
+                                //kafka
+                               // string topic = smsinq.periodSendly;
+                                //string messagee = JsonSerializer.Serialize(new OnceMessage { IdSMSinQueu = smsinq.Id });
+                                //await SendOrderRequest(topic, messagee);
+
+
+                                //sort based on periority
+
+
                                 //insert in channelonce
 
                                 await _channelOnce.AddToChannelAsync(new OnceMessage { IdSMSinQueu = smsinq.Id }, stoppingToken);
@@ -105,6 +162,15 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                             }
                             if (smsinq.periodSendly == "Hourly")
                             {
+
+                                //kafka
+                                // string topic = smsinq.periodSendly;
+                                //string messagee = JsonSerializer.Serialize(new OnceMessage { IdSMSinQueu = smsinq.Id });
+                                // await SendOrderRequest(topic, messagee);
+
+
+
+
                                 //insert in channelonce
 
                                 await _channelhourly.AddToChannelAsync(new HourlyMessage { IdSMSinQueu = smsinq.Id }, stoppingToken);

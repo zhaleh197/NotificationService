@@ -24,11 +24,11 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.PostQ
                 QeueofSMS smsq = new QeueofSMS()
                 {
                     dateofLimitet = request.dateofLimitet.ToString(),
-                    dateOfsend = request.dateOfsend.Date.ToString(),
+                    dateOfsend = request.dateOfsend,
                     IdUser = request.IdUser,
                     periodSendly = request.periodSendly,
                     periority = request.periority,
-                    timeOfsend = request.timeOfsend.TimeOfDay.ToString(),
+                    timeOfsend = request.timeOfsend,
                     txt = request.txt,
                     TypeofResiver = request.TypeofResiver,
                     to = ito,

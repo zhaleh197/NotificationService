@@ -49,7 +49,7 @@ namespace Notification.Application.Service.SMS.Queris.Get
         public List<string> Resiver { get; set; }
         public string Body { get; set; }
         public DateTime DateSendStart { get; set; }
-        public string Periority { get; set; }
+        public int Periority { get; set; }
         public string Type { get; set; }
     }
 

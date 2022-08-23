@@ -28,6 +28,7 @@
     <PackageReference Include="MimeKit" Version="3.3.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.5" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.48" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
   </ItemGroup>
@@ -38,7 +39,7 @@
 
   <ItemGroup>
     <Folder Include="ApplicationbyMediator\SMSApplication\Queries\GetAllinQSMS\" />
-    <Folder Include="ApplicationbyMediator\UserApplication\Commands\Update\" />
+    <Folder Include="ApplicationbyMediator\UserApplication\Commands\User\Update\" />
     <Folder Include="ApplicationbyMediator\UserApplication\Queries\GetAll\" />
   </ItemGroup>
 

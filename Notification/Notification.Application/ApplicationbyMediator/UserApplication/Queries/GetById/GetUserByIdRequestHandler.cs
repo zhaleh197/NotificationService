@@ -24,12 +24,11 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Queries
             return _readSMSUser.GetByUSerIdAsync(request.IdUser, cancellationToken);
         }
 
-
-
-
+         
         //public Task<SMSUser> Handle(GetUserByIdRequest request)
         //{
         //    return _readSMSUser.GetByUSerIdAsync(request.IdUser);
         //}
+
     }
 }

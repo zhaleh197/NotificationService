@@ -29,8 +29,11 @@ namespace Notification.Application.Service.SMS.Commands
     public class SMSSendResponse
     {
         public string statuse { get; set; }
+        //public long datesend { get; set; }
+        //public int deliverd { get; set; }
         public DateTime datesend { get; set; }
-        public DateTime deliverd { get; set; }
+        public int deliverd { get; set; }
+        public int cost { get; set; }
 
     }
 

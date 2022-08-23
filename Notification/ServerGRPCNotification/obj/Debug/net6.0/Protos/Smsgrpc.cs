@@ -30,7 +30,7 @@ namespace ServerGRPCNotification {
             "ASABKAgipgEKFVJlc3VsdEdldFFldWVVc2VyU01TMRIKCgJJZBgBIAEoAxIO",
             "CgZJZFVzZXIYAiABKAMSDwoHUmVzaXZlchgDIAMoCRIMCgRCb2R5GAQgASgJ",
             "EjEKDURhdGVTZW5kU3RhcnQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt",
-            "ZXN0YW1wEhEKCVBlcmlvcml0eRgGIAEoCRIMCgRUeXBlGAcgASgJIkoKGUxp",
+            "ZXN0YW1wEhEKCVBlcmlvcml0eRgGIAEoBRIMCgRUeXBlGAcgASgJIkoKGUxp",
             "c3RSZXN1bHRHZXRRZXVlVXNlclNNUzESLQoFaXRlbXMYASADKAsyHi5zbXNn",
             "cnBjLlJlc3VsdEdldFFldWVVc2VyU01TMSIfCgxMaXN0UmVzaXZlcnMSDwoH",
             "UmVzaXZlchgBIAEoCSK+AQoRUmVzdWx0R2V0VXNlclNNUzESCgoCSWQYASAB",
@@ -751,13 +751,13 @@ namespace ServerGRPCNotification {
 
     /// <summary>Field number for the "Periority" field.</summary>
     public const int PeriorityFieldNumber = 6;
-    private string periority_ = "";
+    private int periority_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Periority {
+    public int Periority {
       get { return periority_; }
       set {
-        periority_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        periority_ = value;
       }
     }
 
@@ -807,7 +807,7 @@ namespace ServerGRPCNotification {
       hash ^= resiver_.GetHashCode();
       if (Body.Length != 0) hash ^= Body.GetHashCode();
       if (dateSendStart_ != null) hash ^= DateSendStart.GetHashCode();
-      if (Periority.Length != 0) hash ^= Periority.GetHashCode();
+      if (Periority != 0) hash ^= Periority.GetHashCode();
       if (Type.Length != 0) hash ^= Type.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -844,9 +844,9 @@ namespace ServerGRPCNotification {
         output.WriteRawTag(42);
         output.WriteMessage(DateSendStart);
       }
-      if (Periority.Length != 0) {
-        output.WriteRawTag(50);
-        output.WriteString(Periority);
+      if (Periority != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Periority);
       }
       if (Type.Length != 0) {
         output.WriteRawTag(58);
@@ -879,9 +879,9 @@ namespace ServerGRPCNotification {
         output.WriteRawTag(42);
         output.WriteMessage(DateSendStart);
       }
-      if (Periority.Length != 0) {
-        output.WriteRawTag(50);
-        output.WriteString(Periority);
+      if (Periority != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Periority);
       }
       if (Type.Length != 0) {
         output.WriteRawTag(58);
@@ -910,8 +910,8 @@ namespace ServerGRPCNotification {
       if (dateSendStart_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(DateSendStart);
       }
-      if (Periority.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Periority);
+      if (Periority != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Periority);
       }
       if (Type.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Type);
@@ -944,7 +944,7 @@ namespace ServerGRPCNotification {
         }
         DateSendStart.MergeFrom(other.DateSendStart);
       }
-      if (other.Periority.Length != 0) {
+      if (other.Periority != 0) {
         Periority = other.Periority;
       }
       if (other.Type.Length != 0) {
@@ -988,8 +988,8 @@ namespace ServerGRPCNotification {
             input.ReadMessage(DateSendStart);
             break;
           }
-          case 50: {
-            Periority = input.ReadString();
+          case 48: {
+            Periority = input.ReadInt32();
             break;
           }
           case 58: {
@@ -1034,8 +1034,8 @@ namespace ServerGRPCNotification {
             input.ReadMessage(DateSendStart);
             break;
           }
-          case 50: {
-            Periority = input.ReadString();
+          case 48: {
+            Periority = input.ReadInt32();
             break;
           }
           case 58: {

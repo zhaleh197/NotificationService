@@ -43,7 +43,7 @@ message ResultGetQeueUserSMS1 {
    // repeated ListResivers Resivers = 3;
     string Body = 4;
     google.protobuf.Timestamp DateSendStart = 5;
-    string Periority = 6;
+    int32 Periority = 6;
     string Type = 7;
 }
 message ListResultGetQeueUserSMS1 {

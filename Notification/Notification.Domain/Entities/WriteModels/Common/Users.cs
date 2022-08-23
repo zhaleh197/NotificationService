@@ -14,7 +14,7 @@ namespace Notification.Domain.Entities.Common
     public class Users:BaseEntity<long>
     {
         public long IdUser { get; set; }
-
+        public string Phone { get; set; }
         // public long Credit { get; set; }//Etebar// Mr Nazari saied here isnt any things of Wallet to save in here.
 
         public virtual long IdUSerType { get; set; }
@@ -28,6 +28,9 @@ namespace Notification.Domain.Entities.Common
 
         [ForeignKey("IdPackageTariff")]
         public virtual PackageTariff PackageTariff { get; set; }
+
+
+
         public DateTime DeadlinePackage { get; set; }
 
         // public virtual Projects projects { get; set; }  // dar project id user ra gozashteiim
@@ -44,10 +47,10 @@ namespace Notification.Domain.Entities.Common
         //public virtual ICollection<SarKhat> SarKhat { get; set; }//delet for solve cycle
 
 
-       // public virtual ICollection<Projects> Projects { get; set; }
+        // public virtual ICollection<Projects> Projects { get; set; }
 
 
-      
+
 
         //14010421// nmidonam
         public virtual ICollection<DocumentsUser> DocumentsUser { get; set; }

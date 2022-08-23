@@ -45,6 +45,7 @@ namespace Notification.Application.Service.User.Enroll
             Users user = new Users()
             {
                 IdUser = request. IdUser,
+                Phone=request. Phone,
                 DeadlinePackage = request.DeadlinePackage,
                 InsertTime=DateTime.Now,
                 PackageTariff= _context.PackageTariff.Where(p => p.Id.Equals(request.IdPackagetariffSMS)).FirstOrDefault(),
