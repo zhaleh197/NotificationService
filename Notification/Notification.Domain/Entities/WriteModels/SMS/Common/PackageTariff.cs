@@ -10,24 +10,13 @@ namespace Notification.Domain.Entities.SMS.Common
 {
     public class PackageTariff: BaseEntity<long>
     {
-        //    [Key]
-        //    public long Id { get; set; }
-        public virtual long IdPackageSMS { get; set; }
+        public string TitlePackage { get; set; } //طلایی-نقره ای- برنزی
+        public long PricePackage { get; set; }// 300-500-700
 
-        [ForeignKey("IdPackageSMS")]
-        public virtual PackageSMS PackageSMS { get; set; }
+        public double ZaridTakhfifPaciTareeffe { get; set; }//zarayeb tareff
 
-        public long IdSarKhat { get; set; }
-        //public virtual long IdSarKhat { get; set; }
-        // [ForeignKey("IdSarKhat")]
-        // public virtual SarKhat SarKhat { get; set; }
-
-
-
-        public string FarsiTariff { get; set; } 
-        public string EnglishTariff { get; set; }
-
-
+        //public double FarsiTariff { get; set; }//zarayeb tareff
+        //public double EnglishTariff { get; set; }//zarayeb tareffe
 
         public virtual ICollection<Users> User { get; set; }
     }

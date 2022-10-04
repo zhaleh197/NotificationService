@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Notification.Domain.Entities.Common
 {
-    public class Usertype: BaseEntity<long>
-    {
-        //[Key]
-        //public long Id { get; set; }
+    public class Usertype: BaseEntity<int>
+    { 
         public string Title { get; set; }// haghigghi / hoghooghi
 
 
-        public virtual ICollection<Users> User { get; set; }
+       // public virtual ICollection<Users> User { get; set; }
 
 
     }

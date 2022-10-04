@@ -12,8 +12,8 @@ namespace Notification.Domain.Entities.Common
         [Key]
         public TKey Id { get; set; }
         public DateTime InsertTime { get; set; } = DateTime.Now;
-        public DateTime? UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; } = null;
         public bool IsRemoved { get; set; } = false;
-        public DateTime? RemoveTime { get; set; }
+        public DateTime? RemoveTime { get; set; } = null;
     }
 }

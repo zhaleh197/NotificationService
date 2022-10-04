@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Notification.Application.ApplicationbyMediator.Common.BaseChannel;
-using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.Common.Events;
+using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.Common.Events.UserEvent;
 using Notification.Application.Service.ReadRepository.User;
 using System;
 using System.Collections.Generic;

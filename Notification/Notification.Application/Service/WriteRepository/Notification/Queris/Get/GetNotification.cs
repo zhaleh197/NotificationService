@@ -17,19 +17,19 @@ namespace Notification.Application.Service.Notification.Queris.Get
         {
             _context = context;
         }
-        public List<ResultGetClientNotification> GetClientNotification()
-        {
-            var res=_context.NotificationClients.AsQueryable().ToList();
+        //public List<ResultGetClientNotification> GetClientNotification()
+        //{
+        //    var res=_context.NotificationClients.AsQueryable().ToList();
 
-            var config = new MapperConfiguration(cfg =>
-                cfg.CreateMap<List<NotificationClient>, List<ResultGetClientNotification>>()
-            );
-            var mapper = new Mapper(config);
+        //    var config = new MapperConfiguration(cfg =>
+        //        cfg.CreateMap<List<NotificationClient>, List<ResultGetClientNotification>>()
+        //    );
+        //    var mapper = new Mapper(config);
 
-            var result = mapper.Map<List<ResultGetClientNotification>>(res);
-            //AutoMapper();
-            return result;
-        }
+        //    var result = mapper.Map<List<ResultGetClientNotification>>(res);
+        //    //AutoMapper();
+        //    return result;
+        //}
         public List<ResultGetUserNotification> GetUserNotification()
         {
             var res = _context.NotificationUsers.AsQueryable().ToList();

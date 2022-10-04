@@ -9,6 +9,7 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Command
 {
     public class AddDocRequest:IRequest<AddDocResponse>//long is response.
     {
+        public long id { get; set; }
         public long idUser { get; set; }
         public long idDocumentType { get; set; }
         public string base64imagopDoc { get; set; }

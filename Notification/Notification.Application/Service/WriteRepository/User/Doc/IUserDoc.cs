@@ -8,9 +8,12 @@ namespace Notification.Application.Service.User.Doc
 {
     public interface IUserDoc
     {
-        public string SendDoc(DocModel docs);
+        public long SendDoc(DocModel docs);
         public bool ConfirmDoc(long iduser, bool conORuncon);
         public long DeletDoc(long iddoc);
         public DocModelresponse getDocpathbyIDUser(long iduser);
+        public string getDocTypebyId(long id );
+        public DocModelresponse getDocbyId(long id);
+        public List<DocModelresponse> getDocpathbyIDUserList(long iduser);
     }
 }

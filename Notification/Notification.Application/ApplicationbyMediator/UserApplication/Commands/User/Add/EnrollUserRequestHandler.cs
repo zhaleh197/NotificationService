@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Notification.Application.ApplicationbyMediator.Common.BaseChannel;
-using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.Common.Events;
+using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.Common.Events.UserEvent;
 using Notification.Application.Service.User.Enroll;
 using System;
 using System.Collections.Generic;
@@ -21,10 +21,18 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Command
             _localUser = localUser;
         }
         public async Task<EnrollUserResponse> Handle(EnrollUserRequest request, CancellationToken cancellationToken=default)
-        {
-           
+        { 
 
-            var command = _localUser.UserEnroll(new LocalUserMOdel { IdUser = request.IdUser,Phone=request.Phone, DeadlinePackage = request.DeadlinePackage, IdPackagetariffSMS = request.IdPackagetariffSMS, Idprojects = request.Idprojects, IdUsertype = request.IdUsertype });
+            var command = _localUser.UserEnroll(
+                new LocalUserMOdel {
+                    IdUser = request.IdUser,
+                    Phone=request.Phone, 
+                    CreditFinance=request.CreditFinance,
+                    CridetMeaasage=request.CridetMeaasage,
+                    IdRole=request.IdRole,
+                    IdUsertype=request.IdUsertype,
+                   
+                    });
 
             //if (command > 0)
             //{

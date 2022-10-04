@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Service.User.Proj;
-using Notification.Application.Service.WriteRepository.User.Proj.Kat;
-using Notification.Application.Service.WriteRepository.User.Proj.Kat.SarKhat;
+using Notification.Application.Service.WriteRepository.User.Kat;
+using Notification.Application.Service.WriteRepository.User.Kat.SarKhat; 
+
 
 namespace NotificationAPICQRS.Controllers
 {
@@ -46,7 +47,7 @@ namespace NotificationAPICQRS.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPro(ProjModel p)
+        public IActionResult AddPro(ADDProjModel p)
         {
             long i=_userProjects.AddPro(p);
 
@@ -63,56 +64,28 @@ namespace NotificationAPICQRS.Controllers
             return Ok(d);
         }
 
-        ///////////////////////////////////
-        //KHAT//
-        [HttpGet]
-        public IActionResult getallkhat()
-        {
-            _logger.LogInformation("get all khat");
-            return Ok(_khat.GetAllKhat());
-        }
-        [HttpGet("{id}")]
-        public IActionResult getkhatbyid([FromRoute] long id)
-        {
-            _logger.LogInformation("get khat {0}", id);
-            return Ok(_khat.GetKhatbyId(id));
-        }
+       
+        /// <summary>
+        /// //SarKHAT//
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
 
-        [HttpGet("{id}")]
-        public IActionResult getkhatbyidpro([FromRoute] long id)
-        {
-            _logger.LogInformation("get khat by {0} pro", id);
-            return Ok(_khat.GetKhatbyIdPro(id));
-        }
+        //SarKHAT//
 
-        [HttpPost]
-        public IActionResult Addkhat(KhatModel p)
-        {
-            long i = _khat.AddKhat(p);
+        //in API Adi baashad.
 
-            _logger.LogInformation("add khat {0}", i);
-            return Ok(i);
-        }
+        /////
+        //SarKHAT//
 
-        [HttpDelete("{id}")]
-        public IActionResult Deletekhat([FromRoute] long id)
-        {
-            long d = _khat.DeletKhat(id);
-
-            _logger.LogInformation(" Delete khat {0}", d);
-            return Ok(d);
-        }
-
-        /////////////////////////////////////////////////
-        ///
-           //SarKHAT//
+        //in API Adi baashad.
         [HttpGet]
         public IActionResult getallSarkhat()
         {
             _logger.LogInformation("get all Sarkhat");
             return Ok(_sarKhat.GetAllsarKhat());
         }
-
+       
         [HttpPost]
         public IActionResult Addsarkhat(SarKhatModel p)
         {
@@ -131,5 +104,56 @@ namespace NotificationAPICQRS.Controllers
             return Ok(d);
         }
 
+
+        /// <summary>
+        ///  in mediator bashad
+        /// </summary>
+        /// <returns></returns>
+
+        ///////////////////////////////////
+        ////KHAT//
+        [HttpGet]
+        public IActionResult getallkhat()
+        {
+            _logger.LogInformation("get all khat");
+            return Ok(_khat.GetAllKhatUsers());
+        }
+        [HttpGet("{id}")]
+        public IActionResult getkhatbyiduser([FromRoute] long id)
+        {
+            _logger.LogInformation("get khat {0}", id);
+            return Ok(_khat.GetKhatbyIdUser(id));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult getkhatbyidkhat([FromRoute] long id)
+        {
+            _logger.LogInformation("get khat by {0} pro", id);
+            return Ok(_khat.GetKhatbyId(id));
+        }
+
+        // in mediator coded.
+
+
+        //[HttpPost]
+        //public IActionResult Addkhat(KhatModel p)
+        //{
+        //    long i = _khat.AddKhat(p);
+
+        //    _logger.LogInformation("add khat {0}", i);
+        //    return Ok(i);
+        //}
+
+        //[HttpDelete("{id}")]
+        //public IActionResult Deletekhat([FromRoute] long id)
+        //{
+        //    long d = _khat.DeletKhat(id);
+
+        //    _logger.LogInformation(" Delete khat {0}", d);
+        //    return Ok(d);
+        //}
+
+        ///////////////////////////////////////////////////
+        ///// 
     }
 }

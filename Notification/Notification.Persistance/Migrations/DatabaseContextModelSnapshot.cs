@@ -106,6 +106,50 @@ namespace Notification.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DocumentType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9372),
+                            IsRemoved = false,
+                            Title = "مدارک احراز هویت"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9379),
+                            IsRemoved = false,
+                            Title = "شناسنامه"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9381),
+                            IsRemoved = false,
+                            Title = "کارت ملی"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9383),
+                            IsRemoved = false,
+                            Title = "فیش پرداختی"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9386),
+                            IsRemoved = false,
+                            Title = "جواز"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9388),
+                            IsRemoved = false,
+                            Title = "خرید خط"
+                        });
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.Common.Projects", b =>
@@ -120,7 +164,7 @@ namespace Notification.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("IdUser")
+                    b.Property<long>("IdKhototUser")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("InsertTime")
@@ -141,6 +185,8 @@ namespace Notification.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdKhototUser");
+
                     b.ToTable("Projects");
                 });
 
@@ -152,14 +198,20 @@ namespace Notification.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DeadlinePackage")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreditFinance")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CridetMeaasage")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("IdPackageTariff")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IdUSerType")
+                    b.Property<long>("IdRole")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("IdUSerType")
+                        .HasColumnType("int");
 
                     b.Property<long>("IdUser")
                         .HasColumnType("bigint");
@@ -171,7 +223,6 @@ namespace Notification.Persistance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RemoveTime")
@@ -191,11 +242,11 @@ namespace Notification.Persistance.Migrations
 
             modelBuilder.Entity("Notification.Domain.Entities.Common.Usertype", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("InsertTime")
                         .HasColumnType("datetime2");
@@ -220,56 +271,18 @@ namespace Notification.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1457),
+                            Id = 1,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9767),
                             IsRemoved = false,
                             Title = "Real"
                         },
                         new
                         {
-                            Id = 2L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1462),
+                            Id = 2,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9772),
                             IsRemoved = false,
                             Title = "Legal"
                         });
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.Email.EmailClient", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateDelivere")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateSend")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdClient")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailClients");
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.Email.EmailUser", b =>
@@ -308,45 +321,6 @@ namespace Notification.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmailUsers");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.Email.QeueEmailClient", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateSendStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdClient")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Periority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("QEmailClients");
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.Email.QeueEmailUser", b =>
@@ -388,44 +362,6 @@ namespace Notification.Persistance.Migrations
                     b.ToTable("QEmailUsers");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.Notification.NotificationClient", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateDelivere")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateSend")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("IdClient")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NotificationClients");
-                });
-
             modelBuilder.Entity("Notification.Domain.Entities.Notification.NotificationUser", b =>
                 {
                     b.Property<long>("Id")
@@ -462,45 +398,6 @@ namespace Notification.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NotificationUsers");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.Notification.QeueNotificationClient", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateSendStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("IdClient")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Periority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("QNotificationClient");
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.Notification.QeueNotificationUser", b =>
@@ -660,49 +557,7 @@ namespace Notification.Persistance.Migrations
                     b.ToTable("GroupFrinds");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.KhatSMS", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("IdProjects")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("IdSarKhat")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LineNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Statuse")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdProjects");
-
-                    b.HasIndex("IdSarKhat");
-
-                    b.ToTable("KhatSMS");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.PackageSMS", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.PackageTariff", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -729,74 +584,10 @@ namespace Notification.Persistance.Migrations
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PackageSMS");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1358),
-                            IsRemoved = false,
-                            PricePackage = 100000L,
-                            TitlePackage = "Golden"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1365),
-                            IsRemoved = false,
-                            PricePackage = 75000L,
-                            TitlePackage = "Silver"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1369),
-                            IsRemoved = false,
-                            PricePackage = 50000L,
-                            TitlePackage = "Bronze"
-                        });
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.PackageTariff", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("EnglishTariff")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FarsiTariff")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("IdPackageSMS")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("IdSarKhat")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("ZaridTakhfifPaciTareeffe")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdPackageSMS");
 
                     b.ToTable("PackageTariff");
 
@@ -804,32 +595,38 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            EnglishTariff = "25",
-                            FarsiTariff = "30",
-                            IdPackageSMS = 1L,
-                            IdSarKhat = 1L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1001),
-                            IsRemoved = false
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9672),
+                            IsRemoved = false,
+                            PricePackage = 100000L,
+                            TitlePackage = "Golden",
+                            ZaridTakhfifPaciTareeffe = 0.80000000000000004
                         },
                         new
                         {
                             Id = 2L,
-                            EnglishTariff = "35",
-                            FarsiTariff = "40",
-                            IdPackageSMS = 2L,
-                            IdSarKhat = 2L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1008),
-                            IsRemoved = false
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9681),
+                            IsRemoved = false,
+                            PricePackage = 75000L,
+                            TitlePackage = "Silver",
+                            ZaridTakhfifPaciTareeffe = 0.90000000000000002
                         },
                         new
                         {
                             Id = 3L,
-                            EnglishTariff = "45",
-                            FarsiTariff = "50",
-                            IdPackageSMS = 3L,
-                            IdSarKhat = 3L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1081),
-                            IsRemoved = false
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9684),
+                            IsRemoved = false,
+                            PricePackage = 50000L,
+                            TitlePackage = "Bronze",
+                            ZaridTakhfifPaciTareeffe = 0.94999999999999996
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9686),
+                            IsRemoved = false,
+                            PricePackage = 0L,
+                            TitlePackage = "Ziro",
+                            ZaridTakhfifPaciTareeffe = 1.0
                         });
                 });
 
@@ -864,64 +661,6 @@ namespace Notification.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Phonebooks");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.SarKhat", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SarKhatNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Spacial")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SarKhats");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1410),
-                            IsRemoved = false,
-                            SarKhatNumber = "1000",
-                            Spacial = true
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1415),
-                            IsRemoved = false,
-                            SarKhatNumber = "2000",
-                            Spacial = false
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            InsertTime = new DateTime(2022, 8, 21, 15, 11, 8, 139, DateTimeKind.Local).AddTicks(1419),
-                            IsRemoved = false,
-                            SarKhatNumber = "3000",
-                            Spacial = false
-                        });
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.StockSMS", b =>
@@ -962,213 +701,6 @@ namespace Notification.Persistance.Migrations
                     b.ToTable("StockSMs");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.QeueSend.QeueSMS", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DateSendStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdSMS")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Periority")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdSMS");
-
-                    b.ToTable("QSMSUsers");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.QeueSMSClient", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateSendStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdUser")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Periority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("QSMSClient");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.SMS.SMS_Resivers", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DateDelivere")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateSend")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Deliverd")
-                        .HasColumnType("int");
-
-                    b.Property<long>("IdSMS")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SendStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdSMS");
-
-                    b.ToTable("SMS_Resivers");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.SMS.SMSUser", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("IdUser")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("SMSUsers");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.SMSClient", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateDelivere")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateSend")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdClient")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Resiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SMSClients");
-                });
-
             modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.BlackList.SpamWords", b =>
                 {
                     b.Property<long>("Id")
@@ -1184,18 +716,67 @@ namespace Notification.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SpamWords");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Word = "Daesh"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Word = "داعش"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Word = "جنبش"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Word = "دموکرات"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Word = "اوجالان"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Word = "قاضی"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Word = "Demokrat"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Word = "Ghazi"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Word = "Komala"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Word = "Dolat"
+                        });
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.QeueSend.QeueofSMS", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.Role", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("IdUser")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("InsertTime")
                         .HasColumnType("datetime2");
@@ -1206,30 +787,902 @@ namespace Notification.Persistance.Migrations
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("TypeofResiver")
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9059),
+                            IsRemoved = false,
+                            Title = "مدیر"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9112),
+                            IsRemoved = false,
+                            Title = "کاربر"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9115),
+                            IsRemoved = false,
+                            Title = "اپراتور"
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.Ticket", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IdOperator")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Statuse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleQuestion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("Ticket");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.Transaction", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("CodeRahgiriPardakht")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("NewCriditUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimeTransaction")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TitleTransaction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("price")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.KhototUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DedlineKhat")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdSarKhat")
+                        .HasColumnType("int");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("KhatNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Statuse")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Type")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("dateOfsend")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.Property<string>("dateofLimitet")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("IdSarKhat");
 
-                    b.Property<string>("periodSendly")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("IdUser");
 
-                    b.Property<int>("periority")
+                    b.ToTable("KhototUsers");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.PublicKhotot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("timeOfsend")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("IdSarKhat")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LengthofNumber")
+                        .HasColumnType("int");
+
+                    b.Property<long>("LineNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Statue")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdSarKhat");
+
+                    b.ToTable("PublicKhotots");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdSarKhat = 1,
+                            LengthofNumber = 10,
+                            LineNumber = 1000123456L,
+                            Statue = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdSarKhat = 2,
+                            LengthofNumber = 12,
+                            LineNumber = 200012345678L,
+                            Statue = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdSarKhat = 2,
+                            LengthofNumber = 14,
+                            LineNumber = 30001234567890L,
+                            Statue = true
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.SarKhat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("BasePrice")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EnglishZarib")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HamrahAvalZarib")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("IranselZarib")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("PersianZarib")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RaytelZarib")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SarKhatNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Spacial")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TejasriLinkZarib")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SarKhats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BasePrice = 77.0,
+                            EnglishZarib = 1.2,
+                            HamrahAvalZarib = 1.0,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9715),
+                            IranselZarib = 1.2,
+                            IsRemoved = false,
+                            PersianZarib = 1.0,
+                            RaytelZarib = 1.5,
+                            SarKhatNumber = "1000",
+                            Spacial = 1,
+                            TejasriLinkZarib = 1.8999999999999999
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BasePrice = 82.0,
+                            EnglishZarib = 1.2,
+                            HamrahAvalZarib = 1.0,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9724),
+                            IranselZarib = 1.2,
+                            IsRemoved = false,
+                            PersianZarib = 1.0,
+                            RaytelZarib = 1.5,
+                            SarKhatNumber = "2000",
+                            Spacial = 2,
+                            TejasriLinkZarib = 1.8999999999999999
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BasePrice = 77.599999999999994,
+                            EnglishZarib = 1.2,
+                            HamrahAvalZarib = 1.0,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9728),
+                            IranselZarib = 1.2,
+                            IsRemoved = false,
+                            PersianZarib = 1.0,
+                            RaytelZarib = 1.5,
+                            SarKhatNumber = "3000",
+                            Spacial = 2,
+                            TejasriLinkZarib = 1.8999999999999999
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BasePrice = 77.599999999999994,
+                            EnglishZarib = 1.2,
+                            HamrahAvalZarib = 1.0,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9731),
+                            IranselZarib = 1.2,
+                            IsRemoved = false,
+                            PersianZarib = 1.0,
+                            RaytelZarib = 1.5,
+                            SarKhatNumber = "5000",
+                            Spacial = 3,
+                            TejasriLinkZarib = 1.8999999999999999
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.SpacitalKhotot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("IdSarKhat")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LengthofNumber")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdSarKhat");
+
+                    b.ToTable("SpacitalKhotots");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdSarKhat = 1,
+                            LengthofNumber = 10,
+                            Price = 8000000L
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdSarKhat = 1,
+                            LengthofNumber = 12,
+                            Price = 400000L
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdSarKhat = 1,
+                            LengthofNumber = 14,
+                            Price = 200000L
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IdSarKhat = 2,
+                            LengthofNumber = 10,
+                            Price = 8000000L
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IdSarKhat = 2,
+                            LengthofNumber = 12,
+                            Price = 400000L
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IdSarKhat = 2,
+                            LengthofNumber = 14,
+                            Price = 200000L
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IdSarKhat = 3,
+                            LengthofNumber = 10,
+                            Price = 8000000L
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IdSarKhat = 3,
+                            LengthofNumber = 12,
+                            Price = 400000L
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IdSarKhat = 3,
+                            LengthofNumber = 14,
+                            Price = 200000L
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.OperatorsSMS.Pishshomareh", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Discription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Operator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pishshomare")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idOperator")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pishshomareh");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Operator = "همراه اول",
+                            Pishshomare = "918",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Operator = "همراه اول",
+                            Pishshomare = "917",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Operator = "همراه اول",
+                            Pishshomare = "916",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Operator = "همراه اول",
+                            Pishshomare = "915",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Operator = "همراه اول",
+                            Pishshomare = "914",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Operator = "همراه اول",
+                            Pishshomare = "913",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Operator = "همراه اول",
+                            Pishshomare = "912",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Operator = "همراه اول",
+                            Pishshomare = "911",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Operator = "همراه اول",
+                            Pishshomare = "910",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Operator = "همراه اول",
+                            Pishshomare = "990",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Operator = "همراه اول",
+                            Pishshomare = "991",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Operator = "همراه اول",
+                            Pishshomare = "992",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Operator = "همراه اول",
+                            Pishshomare = "993",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Operator = "همراه اول",
+                            Pishshomare = "994",
+                            idOperator = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Operator = "ایرانسل",
+                            Pishshomare = "901",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Operator = "ایرانسل",
+                            Pishshomare = "902",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Operator = "ایرانسل",
+                            Pishshomare = "903",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Operator = "ایرانسل",
+                            Pishshomare = "904",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Operator = "ایرانسل",
+                            Pishshomare = "905",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Operator = "ایرانسل",
+                            Pishshomare = "933",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Operator = "ایرانسل",
+                            Pishshomare = "935",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Operator = "ایرانسل",
+                            Pishshomare = "936",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Operator = "ایرانسل",
+                            Pishshomare = "937",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Operator = "ایرانسل",
+                            Pishshomare = "938",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Operator = "ایرانسل",
+                            Pishshomare = "939",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Operator = "ایرانسل",
+                            Pishshomare = "930",
+                            idOperator = 2
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Operator = "شاتل",
+                            Pishshomare = "922",
+                            idOperator = 3
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Operator = "شاتل",
+                            Pishshomare = "921",
+                            idOperator = 3
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Operator = "شاتل",
+                            Pishshomare = "920",
+                            idOperator = 3
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Operator = "سایر",
+                            Pishshomare = "904",
+                            idOperator = 4
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.PatternSMS", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NumberofVariable")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TextPatern")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitlePattern")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PatternSMs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9428),
+                            IsRemoved = false,
+                            NumberofVariable = 1,
+                            TextPatern = "  کد تایید شما = %1% است.",
+                            TitlePattern = "وریفای"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9434),
+                            IsRemoved = false,
+                            NumberofVariable = 1,
+                            TextPatern = " به اپلیکیشن %1% خوش امدید.",
+                            TitlePattern = "خوش امد گویی"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9438),
+                            IsRemoved = false,
+                            NumberofVariable = 2,
+                            TextPatern = "  سلام. %1% عزیز به اپلیکیشن %2% خوش آمدید.",
+                            TitlePattern = "خوش امد گویی  کاربر خاص"
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.PeriodSend", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PeriodSend");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Once"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Hourly"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Daily"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Weekly"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Name = "Mounthly"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Name = "Annoual"
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.TypeSMS", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<bool>("Confirm")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Periority")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeSMS");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Confirm = true,
+                            Name = "رمز پویا",
+                            Periority = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Confirm = true,
+                            Name = "لاگین",
+                            Periority = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Confirm = true,
+                            Name = "فراموشی رمز",
+                            Periority = 1
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Confirm = true,
+                            Name = "اطلاع رسانی",
+                            Periority = 3
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Confirm = false,
+                            Name = "پیام خیلی ضروری",
+                            Periority = 1
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Confirm = true,
+                            Name = "سایر-عادی",
+                            Periority = 3
+                        });
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.QeueSend.QeueofSMS", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<int>("CountSms")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateOfsend")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateofLimitet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IdTypeSMS")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("KhatSend")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PeriodSendly")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("TimeOfsend")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TypeofResiver")
+                        .HasColumnType("bit");
 
                     b.Property<string>("to")
                         .IsRequired()
@@ -1244,6 +1697,112 @@ namespace Notification.Persistance.Migrations
                     b.HasIndex("IdUser");
 
                     b.ToTable("QeueofSMs");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.SMS.SMessageS", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<int>("CountSms")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateOfsend")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateofLimitet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IdTypeSMS")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("KhatSend")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("KhototUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PeriodSendly")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("TimeOfsend")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Txt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdTypeSMS");
+
+                    b.HasIndex("IdUser");
+
+                    b.HasIndex("KhototUserId");
+
+                    b.ToTable("SMessageS");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.SMS.SMS_Resivers", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateDelivered")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateSended")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Deliverd")
+                        .HasColumnType("int");
+
+                    b.Property<long>("IdSMS")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Resiver")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SendStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeofResiver")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdSMS");
+
+                    b.ToTable("SMS_Resivers");
+                });
+
+            modelBuilder.Entity("PatternSMSUsers", b =>
+                {
+                    b.Property<long>("PatternSMsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PatternSMsId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PatternSMSUsers");
                 });
 
             modelBuilder.Entity("GroupFrindsPhonebook", b =>
@@ -1264,7 +1823,7 @@ namespace Notification.Persistance.Migrations
             modelBuilder.Entity("Notification.Domain.Entities.Common.DocumentsUser", b =>
                 {
                     b.HasOne("Notification.Domain.Entities.Common.DocumentType", "DocumentType")
-                        .WithMany()
+                        .WithMany("DocumentsUser")
                         .HasForeignKey("IdDocumentType")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1280,6 +1839,17 @@ namespace Notification.Persistance.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Notification.Domain.Entities.Common.Projects", b =>
+                {
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.KhototUser", "KhototUser")
+                        .WithMany()
+                        .HasForeignKey("IdKhototUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KhototUser");
+                });
+
             modelBuilder.Entity("Notification.Domain.Entities.Common.Users", b =>
                 {
                     b.HasOne("Notification.Domain.Entities.SMS.Common.PackageTariff", "PackageTariff")
@@ -1289,7 +1859,7 @@ namespace Notification.Persistance.Migrations
                         .IsRequired();
 
                     b.HasOne("Notification.Domain.Entities.Common.Usertype", "USerType")
-                        .WithMany("User")
+                        .WithMany()
                         .HasForeignKey("IdUSerType")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1332,36 +1902,6 @@ namespace Notification.Persistance.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.KhatSMS", b =>
-                {
-                    b.HasOne("Notification.Domain.Entities.Common.Projects", "Projects")
-                        .WithMany("KhatSMS")
-                        .HasForeignKey("IdProjects")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Notification.Domain.Entities.SMS.Common.SarKhat", "SarKhat")
-                        .WithMany("KhatSMS")
-                        .HasForeignKey("IdSarKhat")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Projects");
-
-                    b.Navigation("SarKhat");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.PackageTariff", b =>
-                {
-                    b.HasOne("Notification.Domain.Entities.SMS.Common.PackageSMS", "PackageSMS")
-                        .WithMany("PackageTariffs")
-                        .HasForeignKey("IdPackageSMS")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PackageSMS");
-                });
-
             modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.StockSMS", b =>
                 {
                     b.HasOne("Notification.Domain.Entities.Common.Users", "Users")
@@ -1373,48 +1913,67 @@ namespace Notification.Persistance.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.QeueSend.QeueSMS", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.Ticket", b =>
                 {
-                    b.HasOne("Notification.Domain.Entities.SMS.SMS.SMSUser", "SMSUser")
-                        .WithMany("QeueSMSUser")
-                        .HasForeignKey("IdSMS")
+                    b.HasOne("Notification.Domain.Entities.Common.Users", "Users")
+                        .WithMany("Tickets")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SMSUser");
+                    b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.QeueSMSClient", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.Common.Transaction", b =>
                 {
                     b.HasOne("Notification.Domain.Entities.Common.Users", "Users")
+                        .WithMany("Transactions")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.KhototUser", b =>
+                {
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.SarKhat", "SarKhat")
                         .WithMany()
-                        .HasForeignKey("IdUser")
+                        .HasForeignKey("IdSarKhat")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.SMS.SMS_Resivers", b =>
-                {
-                    b.HasOne("Notification.Domain.Entities.SMS.SMS.SMSUser", "SMSUser")
-                        .WithMany("SMS_Resivers")
-                        .HasForeignKey("IdSMS")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SMSUser");
-                });
-
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.SMS.SMSUser", b =>
-                {
                     b.HasOne("Notification.Domain.Entities.Common.Users", "Users")
-                        .WithMany("SMSUser")
+                        .WithMany("KhototUser")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("SarKhat");
+
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.PublicKhotot", b =>
+                {
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.SarKhat", "SarKhat")
+                        .WithMany()
+                        .HasForeignKey("IdSarKhat")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SarKhat");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.SpacitalKhotot", b =>
+                {
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.SarKhat", "SarKhat")
+                        .WithMany()
+                        .HasForeignKey("IdSarKhat")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SarKhat");
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.QeueSend.QeueofSMS", b =>
@@ -1428,28 +1987,73 @@ namespace Notification.Persistance.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.Common.Projects", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.SMS.SMessageS", b =>
                 {
-                    b.Navigation("KhatSMS");
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.TypeSMS", "TypeSMS")
+                        .WithMany("SMessageS")
+                        .HasForeignKey("IdTypeSMS")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Notification.Domain.Entities.Common.Users", "Users")
+                        .WithMany("SMessageS")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.KhototUser", null)
+                        .WithMany("SMessageS")
+                        .HasForeignKey("KhototUserId");
+
+                    b.Navigation("TypeSMS");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.SMS.SMS_Resivers", b =>
+                {
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.SMS.SMessageS", "SMessageS")
+                        .WithMany("SMS_Resivers")
+                        .HasForeignKey("IdSMS")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SMessageS");
+                });
+
+            modelBuilder.Entity("PatternSMSUsers", b =>
+                {
+                    b.HasOne("Notification.Domain.Entities.WriteModels.SMS.Common.PatternSMS", null)
+                        .WithMany()
+                        .HasForeignKey("PatternSMsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Notification.Domain.Entities.Common.Users", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Notification.Domain.Entities.Common.DocumentType", b =>
+                {
+                    b.Navigation("DocumentsUser");
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.Common.Users", b =>
                 {
                     b.Navigation("DocumentsUser");
 
+                    b.Navigation("KhototUser");
+
                     b.Navigation("QeueofSMS");
 
-                    b.Navigation("SMSUser");
-                });
+                    b.Navigation("SMessageS");
 
-            modelBuilder.Entity("Notification.Domain.Entities.Common.Usertype", b =>
-                {
-                    b.Navigation("User");
-                });
+                    b.Navigation("Tickets");
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.PackageSMS", b =>
-                {
-                    b.Navigation("PackageTariffs");
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.PackageTariff", b =>
@@ -1457,15 +2061,18 @@ namespace Notification.Persistance.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.Common.SarKhat", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.Khat.KhototUser", b =>
                 {
-                    b.Navigation("KhatSMS");
+                    b.Navigation("SMessageS");
                 });
 
-            modelBuilder.Entity("Notification.Domain.Entities.SMS.SMS.SMSUser", b =>
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.Common.TypeSMS", b =>
                 {
-                    b.Navigation("QeueSMSUser");
+                    b.Navigation("SMessageS");
+                });
 
+            modelBuilder.Entity("Notification.Domain.Entities.WriteModels.SMS.SMS.SMessageS", b =>
+                {
                     b.Navigation("SMS_Resivers");
                 });
 #pragma warning restore 612, 618

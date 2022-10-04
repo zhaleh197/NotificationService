@@ -8,7 +8,7 @@ namespace Notification.Application.Service.User.Proj
 {
     public interface IUserProjects
     {
-        public long AddPro(ProjModel pro);
+        public long AddPro(ADDProjModel pro);
         public long DeletPro(long idpro);
         public ProjModel GetprobyId(long id);
         public ProjModel GetprobyIdUser(long id);

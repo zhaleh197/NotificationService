@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZmB9lp3zI8PhqsLchcOWoWVq6HWWaEWn4uitirfJdscHi5Fb9x9jQi2TMB3Pcrp9zmph0PZFNS57fiG8PHTaSg==",
+  "dgSpecHash": "5fuGWeirpx1qbs/E34moJnLbznBPfF8OcbWBa42KrXliFa3mNZiXd/09cyHls8nlQ7SfsnUEx2i3uktIEJ4irA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Common\\Notification.Common.csproj",
+  "projectFilePath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Common\\Notification.Common.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tech-8\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Tech-8\\.nuget\\packages\\confluent.kafka\\1.9.2\\confluent.kafka.1.9.2.nupkg.sha512",

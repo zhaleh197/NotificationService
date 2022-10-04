@@ -8,6 +8,8 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Command
 {
     public class AddDocResponse
     {
-       public string addresDoc { get; set; }
+       //public string addresDoc { get; set; }
+        public long Iddoc { get; set; }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using Notification.Domain.Entities.SMS.QeueSend;
+﻿ 
 using Notification.Domain.Entities.WriteModels.SMS.QeueSend;
 using System;
 using System.Collections.Generic;

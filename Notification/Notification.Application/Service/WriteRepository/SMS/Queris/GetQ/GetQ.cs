@@ -14,109 +14,129 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
         {
             _context = context;
         }
-
         public long DeleteSMSinQbyId(long Id)
         {
             var res = _context.QeueofSMs.SingleOrDefault(b => b.Id == Id);
             if (res != null)
             {
-                 _context.QeueofSMs.Remove(res);
+                _context.QeueofSMs.Remove(res);
                 _context.SaveChanges();
                 return res.Id;
             }
             return 0;
         }
-
         public List<ResponceGetQeueSMSmodel> GetQeueUserSMS()
         {
-            var res = _context.QeueofSMs.ToList().Select
-               (us => new ResponceGetQeueSMSmodel
-               {
-                   dateOfsend=Convert.ToDateTime( us.dateOfsend).ToString(),
-                   dateofLimitet= Convert.ToDateTime(us.dateofLimitet).ToString(),
-                   to=us.to,
-                   IdUser=us.IdUser,
-                   periodSendly=us.periodSendly,
-                   periority=us.periority,
-                   //timeOfsend=TimeSpan.Parse(us.timeOfsend),
-                   timeOfsend = DateTime.Parse(us.timeOfsend).ToString(),
-                   Id =us.Id,
-                   txt=us.txt,
-                   TypeofResiver=us.TypeofResiver,
-                   
-               }).ToList(); 
+            var res = _context.QeueofSMs.AsQueryable();
+            if (res != null)
+            {
+                res.Select
+                 (us => new ResponceGetQeueSMSmodel
+                 {
+                     DateOfsend = Convert.ToDateTime(us.DateOfsend).ToString(),
+                     DateofLimitet = Convert.ToDateTime(us.DateofLimitet).ToString(),
+                     to = us.to,
+                     IdUser = us.IdUser,
+                     PeriodSendly = us.PeriodSendly,
+                     //timeOfsend=TimeSpan.Parse(us.timeOfsend),
+                     TimeOfsend = DateTime.Parse(us.TimeOfsend).ToString(),
+                     Id = us.Id,
+                     txt = us.txt,
+                     TypeofResier = us.TypeofResiver,
+                     CountSms = us.CountSms,
+                     KhatSend = us.KhatSend,
+                     // IdKhatSend = us.IdKhatSend,
+                     IdTypeSMS = us.IdTypeSMS,
+                     Price = us.Price
 
-            return res;
+                 }).ToList();
+            }
+            return null;
         }
 
-        public ResponceGetQeueSMSmodel GetsSMSinQbyId(long Id )
+     
+
+        public ResponceGetQeueSMSmodel GetsSMSinQbyId(long Id)
         {
 
-            var res = _context.QeueofSMs.Where(q => q.Id == Id).FirstOrDefault();
-            return new ResponceGetQeueSMSmodel { 
-                Id= res.Id,
-            dateofLimitet=Convert.ToDateTime( res.dateofLimitet).ToString(),
-                //dateOfsend=DateOnly.FromDateTime( res.dateOfsend),
-            dateOfsend = Convert.ToDateTime(res.dateOfsend).ToString(),
-             
-            IdUser =res.IdUser,
-            periodSendly=res.periodSendly,
-            periority=res.periority,
-            //timeOfsend=TimeOnly.FromTimeSpan( res.timeOfsend),
-            timeOfsend = DateTime.Parse(res.timeOfsend).ToString(),
-            to =res.to,
-            txt=res.txt,
-            TypeofResiver=res.TypeofResiver};
+            var us = _context.QeueofSMs.Where(q => q.Id == Id).FirstOrDefault();
+
+            if (us == null) return null;
+            return new ResponceGetQeueSMSmodel
+            {
+                DateOfsend = Convert.ToDateTime(us.DateOfsend).ToString(),
+                DateofLimitet = Convert.ToDateTime(us.DateofLimitet).ToString(),
+                to = us.to,
+                IdUser = us.IdUser,
+                PeriodSendly = us.PeriodSendly,
+                //timeOfsend=TimeSpan.Parse(us.timeOfsend),
+                TimeOfsend = DateTime.Parse(us.TimeOfsend).ToString(),
+                Id = us.Id,
+                txt = us.txt,
+                TypeofResier = us.TypeofResiver,
+                CountSms = us.CountSms,
+                KhatSend = us.KhatSend,
+               // IdKhatSend = us.IdKhatSend,
+                IdTypeSMS = us.IdTypeSMS,
+                Price = us.Price
+
+            };
+
         }
         public ResponceGetQeueSMSmodel UpdateSMSinQbyIdF(long Id, DateOnly dateESeralJadid, string timeESeralJadid)
         {
-            var res = _context.QeueofSMs.SingleOrDefault(b => b.Id == Id);
-            if (res != null)
-            {
-                res.dateOfsend = dateESeralJadid. ToString();
-                res.timeOfsend = timeESeralJadid.ToString() ;
-                _context.SaveChanges();
-            }
+            var us = _context.QeueofSMs.SingleOrDefault(b => b.Id == Id);
+            if (us == null) return null;
+
+            us.DateOfsend = dateESeralJadid.ToString();
+            us.TimeOfsend = timeESeralJadid.ToString();
+            _context.SaveChanges();
+
             return new ResponceGetQeueSMSmodel
             {
-                Id = res.Id,
-                dateofLimitet =Convert.ToDateTime( res.dateofLimitet).ToString(),
-                dateOfsend = Convert.ToDateTime( res.dateOfsend).Date.ToString(),
-                IdUser = res.IdUser,
-                periodSendly = res.periodSendly,
-                periority = res.periority,
-                //timeOfsend = TimeSpan.Parse(res.timeOfsend),
-                timeOfsend = DateTime.Parse(res.timeOfsend).ToString(),
-                to = res.to,
-                txt = res.txt,
-                TypeofResiver = res.TypeofResiver
+                DateOfsend = Convert.ToDateTime(us.DateOfsend).ToString(),
+                DateofLimitet = Convert.ToDateTime(us.DateofLimitet).ToString(),
+                to = us.to,
+                IdUser = us.IdUser,
+                PeriodSendly = us.PeriodSendly,
+                //timeOfsend=TimeSpan.Parse(us.timeOfsend),
+                TimeOfsend = DateTime.Parse(us.TimeOfsend).ToString(),
+                Id = us.Id,
+                txt = us.txt,
+                TypeofResier = us.TypeofResiver,
+                CountSms = us.CountSms,
+                KhatSend = us.KhatSend,
+                //IdKhatSend = us.IdKhatSend,
+                IdTypeSMS = us.IdTypeSMS,
+                Price = us.Price
+
             };
         }
 
-    //    public ResponceGetQeueSMSmodel UpdateSMSinQbyId(long Id, DateOnly dateESeralJadid,TimeOnly timeESeralJadid)
-    //    {
-    //        var res = _context.QeueofSMs.SingleOrDefault(b => b.Id == Id); 
-    //        if (res != null)
-    //        {
-    //            res.dateOfsend = dateESeralJadid.ToDateTime(timeESeralJadid);
-    //            res.timeOfsend = timeESeralJadid.ToTimeSpan();
+        //    public ResponceGetQeueSMSmodel UpdateSMSinQbyId(long Id, DateOnly dateESeralJadid,TimeOnly timeESeralJadid)
+        //    {
+        //        var res = _context.QeueofSMs.SingleOrDefault(b => b.Id == Id); 
+        //        if (res != null)
+        //        {
+        //            res.dateOfsend = dateESeralJadid.ToDateTime(timeESeralJadid);
+        //            res.timeOfsend = timeESeralJadid.ToTimeSpan();
 
-    //            _context.SaveChanges();
-    //        }
-    //        return new ResponceGetQeueSMSmodel
-    //        {
-    //            Id = res.Id,
-    //            dateofLimitet = res.dateofLimitet,
-    //            dateOfsend = DateOnly.FromDateTime(res.dateOfsend),
-    //            IdUser = res.IdUser,
-    //            periodSendly = res.periodSendly,
-    //            periority = res.periority,
-    //            timeOfsend = TimeOnly.FromTimeSpan(res.timeOfsend),
-    //            to = res.to,
-    //            txt = res.txt,
-    //            TypeofResiver = res.TypeofResiver
-    //        };
-    //    }
+        //            _context.SaveChanges();
+        //        }
+        //        return new ResponceGetQeueSMSmodel
+        //        {
+        //            Id = res.Id,
+        //            dateofLimitet = res.dateofLimitet,
+        //            dateOfsend = DateOnly.FromDateTime(res.dateOfsend),
+        //            IdUser = res.IdUser,
+        //            periodSendly = res.periodSendly,
+        //            periority = res.periority,
+        //            timeOfsend = TimeOnly.FromTimeSpan(res.timeOfsend),
+        //            to = res.to,
+        //            txt = res.txt,
+        //            TypeofResiver = res.TypeofResiver
+        //        };
+        //    }
     }
 
 }

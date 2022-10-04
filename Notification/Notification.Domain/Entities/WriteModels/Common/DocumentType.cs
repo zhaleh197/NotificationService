@@ -11,7 +11,10 @@ namespace Notification.Domain.Entities.Common
     {
         //[Key]
         //public long Id { get; set; }
-        public string Title { get; set; }// haghigghi / hoghooghi
-
+        public string Title { get; set; }// شناسنامه/ کارت ملی/ جواز/ فیش پرداختی/ مدارک احراز هویت
+        
+        //شاید. اینر ا 29/6/1401 اضافه کردم
+        //n-1 ba DocumentsUser
+        public virtual ICollection<DocumentsUser>? DocumentsUser { get; set; }
     }
 }

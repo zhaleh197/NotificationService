@@ -8,7 +8,7 @@ namespace Notification.Application.Service.Notification.Queris.Get
 {
     public interface IGetNotification
     {
-        public List<ResultGetClientNotification> GetClientNotification();
+        //public List<ResultGetClientNotification> GetClientNotification();
         public List<ResultGetUserNotification> GetUserNotification();
 
     }

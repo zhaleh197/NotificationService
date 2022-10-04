@@ -3,8 +3,11 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+//using MongoDB.Bson.IO;
 using Notification.Application.ApplicationbyMediator.Common.BaseChannel;
 using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.Common.Events;
+using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.Common.Kafka;
 using Notification.Application.Service.ReadRepository.User;
 using Notification.Application.Service.SMS.Commands;
 using Notification.Application.Service.SMS.Queris.Post;
@@ -15,7 +18,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.GetQSMS
 {
@@ -63,36 +66,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
         }
         bool validation = false;
 
-        private async Task<bool> SendOrderRequest (string topic, string message)
-        {
-            ProducerConfig config = new ProducerConfig
-            {
-                BootstrapServers = "localhost:9092",
-                ClientId = Dns.GetHostName()
-            };
 
-            try
-            {
-                using (var producer = new ProducerBuilder
-                <Null, string>(config).Build())
-                {
-                    var result = await producer.ProduceAsync
-                    (topic, new Message<Null, string>
-                    {
-                        Value = message
-                    });
-
-                    //Debug.WriteLine($"Delivery Timestamp:{ result.Timestamp.UtcDateTime} ");
-                    return await Task.FromResult(true);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error occured: {ex.Message}");
-            }
-
-            return await Task.FromResult(false);
-        }
      
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -110,22 +84,23 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                     //فقط یک بار دیتا را از صف ارسال بخواند و در چنل قرار دهد.
                     while (!validation)
                     {
+                        validation = true;
                         //1. get of DB
                         var resultall = writeRepository.GetQeueUserSMS();
                          
                         //2.Sort Data based Prtiority--- 
                         //نمیشود سورت کرد. زیرا با ورود دیتای جدید نمیتاون چنل را اپدیت کرد.
                         
-
+                        if(resultall != null)
                          //2.Add _checkQueueSMSModelChannel
                             for (int i = 0; i < resultall.Count; i++)// 
                         {
                             await _checkQueueSMSModelChannel.AddToChannelAsync(new SMSAddedinQueue { IdSMSinQueu = resultall[i].Id }, stoppingToken);
                         }
+
                         //3.  validation = true
-                        validation = true;
+                       
                     }
-                    
 
                     /////////////////////////////////////////////////////
                     await foreach (var item in _checkQueueSMSModelChannel.ReturnValue(stoppingToken))
@@ -139,28 +114,34 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
 
                         if (smsinq != null)
                         {
-                            if (smsinq.periodSendly == "Once")
+                            if (smsinq.PeriodSendly == "Once")
                             {
 
-                                //kafka
-                               // string topic = smsinq.periodSendly;
-                                //string messagee = JsonSerializer.Serialize(new OnceMessage { IdSMSinQueu = smsinq.Id });
-                                //await SendOrderRequest(topic, messagee);
 
-
-                                //sort based on periority
 
 
                                 //insert in channelonce
+                                //the 1 approch/ this is true by chanel
 
                                 await _channelOnce.AddToChannelAsync(new OnceMessage { IdSMSinQueu = smsinq.Id }, stoppingToken);
 
-
-                                // await Task.CompletedTask;
+                                ////Kafka
                                 
+                                ////2 approch:
+                                ////felan 14010614
+                                ////Producer API= http://localhost:5126/api/Producer
+                                ////kafka
+                                //string topic = smsinq.IdTypeSMS.ToString();
+                                //long idSMSinKafka = smsinq.Id;
+                                ////string messagee = System.Text.Json.JsonSerializer.Serialize(new OnceMessage { IdSMSinQueu = smsinq.Id });
+                                //HttpClient _client   = new HttpClient();
+                                //string jasonuser = JsonConvert.SerializeObject(new OrderRequest {topic=topic,Id=idSMSinKafka });
+                                //StringContent content = new StringContent(jasonuser, Encoding.UTF8, "application/json");
+                                //var usernew = _client.PostAsync("http://localhost:5126/api/Producer", content).Result;
+                                 
 
                             }
-                            if (smsinq.periodSendly == "Hourly")
+                            if (smsinq.PeriodSendly == "Hourly")
                             {
 
                                 //kafka
@@ -222,7 +203,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                 */
 
                             }
-                            else if (smsinq.periodSendly == "Daily")
+                            else if (smsinq.PeriodSendly == "Daily")
                             {
                                 //insert in channeldaily
 
@@ -274,7 +255,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                     await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
                                 */
                             }
-                            else if (smsinq.periodSendly == "Weekly")
+                            else if (smsinq.PeriodSendly == "Weekly")
                             {
                                 //insert in channeldaily
 
@@ -283,7 +264,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                 await Task.Delay(TimeSpan.FromDays(7), stoppingToken);
                                 */
                             }
-                            else if (smsinq.periodSendly == "Mounthly")
+                            else if (smsinq.PeriodSendly == "Mounthly")
                             {
                                 //insert in channeloMounthlu
 
@@ -292,7 +273,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                 await Task.Delay(TimeSpan.FromDays(30), stoppingToken);
                                */
                             }
-                            else if (smsinq.periodSendly == "Annoual")
+                            else if (smsinq.PeriodSendly == "Annoual")
                             {
                                 //insert in channelAnnual
 

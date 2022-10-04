@@ -4,11 +4,14 @@ using Notification.Domain.Entities.Common;
 using Notification.Domain.Entities.Email;
 using Notification.Domain.Entities.Notification;
 using Notification.Domain.Entities.SMS;
-using Notification.Domain.Entities.SMS.Common;
-using Notification.Domain.Entities.SMS.QeueSend;
-using Notification.Domain.Entities.SMS.SMS;
+using Notification.Domain.Entities.SMS.Common; 
+using Notification.Domain.Entities.WriteModels.Common;
 using Notification.Domain.Entities.WriteModels.Common.BlackList;
+using Notification.Domain.Entities.WriteModels.SMS.Common;
+using Notification.Domain.Entities.WriteModels.SMS.Common.Khat;
+using Notification.Domain.Entities.WriteModels.SMS.Common.OperatorsSMS;
 using Notification.Domain.Entities.WriteModels.SMS.QeueSend;
+using Notification.Domain.Entities.WriteModels.SMS.SMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,25 +27,11 @@ namespace Notification.Application.Interface.Context
         /// </summary>
         public DbSet<EmailUser> EmailUsers { get; set; }
         public DbSet<NotificationUser> NotificationUsers { get; set; }
-        public DbSet<SMSUser> SMSUsers { get; set; }
+        //public DbSet<SMSUser> SMSUsers { get; set; }
 
         public DbSet<QeueEmailUser> QEmailUsers { get; set; }
         public DbSet<QeueNotificationUser> QNotificationUsers { get; set; }
-        public DbSet<QeueSMS> QSMSUsers { get; set; }
-
-        /// <summary>
-        /// Client
-        /// </summary>
-
-        public DbSet<EmailClient> EmailClients { get; set; }
-        public DbSet<NotificationClient> NotificationClients { get; set; }
-        public DbSet<SMSClient> SMSClients { get; set; }
-
-        public DbSet<QeueEmailClient> QEmailClients { get; set; }
-        public DbSet<QeueNotificationClient> QNotificationClient { get; set; }
-        public DbSet<QeueSMSClient> QSMSClient { get; set; }
-
-        ////
+      
         ///
 
         public DbSet<Announcement> Announcements { get; set; }
@@ -63,21 +52,29 @@ namespace Notification.Application.Interface.Context
         public DbSet<DocumentType> DocumentType { get; set; }
         public DbSet<Projects> Projects { get; set; }
         public DbSet<Usertype> Usertype { get; set; }
-         
-        public DbSet<KhatSMS> KhatSMS { get; set; }
-        public DbSet<PackageSMS> PackageSMS { get; set; }
+          
         public DbSet<SMS_Resivers> SMS_Resivers { get; set; }
+
 
         //14010503
         public DbSet<QeueofSMS> QeueofSMs { get; set; }
 
         public DbSet<SpamWords> SpamWords { get; set; }
 
+        //14010606
 
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<PatternSMS> PatternSMs { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
+        public DbSet<KhototUser> KhototUsers { get; set; }
+        public DbSet<PublicKhotot> PublicKhotots { get; set; }
+        public DbSet<SpacitalKhotot> SpacitalKhotots { get; set; }
+        public DbSet<TypeSMS> TypeSMS { get; set; }
+        public DbSet<PeriodSend> PeriodSend { get; set; }
+        public DbSet<SMessageS> SMessageS { get; set; }
 
-
-
+        public DbSet<Pishshomareh> Pishshomareh { get; set; }
 
 
 

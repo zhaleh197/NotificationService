@@ -7,6 +7,7 @@ using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Ad
 using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Delete;
 using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Doc.AddDoc;
 using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Doc.DeleteDoc;
+using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Transaction.AddTrans;
 using Notification.Application.ApplicationbyMediator.UserApplication.Queries.GetById;
 using System.Security.Claims;
 //using Notification.Application.Service.User.Enroll;
@@ -26,7 +27,6 @@ namespace NotificationAPICQRS.Controllers
         {
            _mediator = mediator;
         }
-
 
         //[HttpPost]
         //public async Task<IActionResult> Enroll(userCommand command)
@@ -68,7 +68,6 @@ namespace NotificationAPICQRS.Controllers
             }
             return BadRequest();
         }
-
         [HttpGet]
         public async Task<IActionResult> GetUserById([FromQuery] GetUserByIdRequest model, CancellationToken cancellationToken)
         {
@@ -76,9 +75,6 @@ namespace NotificationAPICQRS.Controllers
 
             return Ok(query);
         }
-
-
-
         //[HttpGet]
         //public async Task<IActionResult> GetAll()
         //{
@@ -102,9 +98,7 @@ namespace NotificationAPICQRS.Controllers
 
         //////////////////////////////////
         ///
-
         //USER: Documents
-
         [HttpPost]
         public async Task<IActionResult> AddDoc(AddDocRequest command)
         {
@@ -116,6 +110,16 @@ namespace NotificationAPICQRS.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddTransaction(AddTransactionRequest command)
+        {
+            var re = await _mediator.Send(command);
+            if (re != null)
+            {
+                return Ok(command);
+            }
+            return BadRequest();
+        }
         [HttpDelete]
         public async Task<IActionResult> DeleteDoc([FromQuery] DeleteDocRequest model, CancellationToken cancellationToken)
         {

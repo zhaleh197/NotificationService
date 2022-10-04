@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj": {}
+    "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj": {
+    "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj",
+        "projectUniqueName": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj",
         "projectName": "Notification.Infrastracture",
-        "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj",
+        "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Infrastracture\\Notification.Infrastracture.csproj",
         "packagesPath": "C:\\Users\\Tech-8\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Infrastracture\\obj\\",
+        "outputPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Infrastracture\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

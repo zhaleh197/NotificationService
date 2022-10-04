@@ -22,9 +22,7 @@ using Notification.Application.Service.User.Enroll;
 using Notification.Persistance.Context;
 using NotificationAPICQRS;
 using System.Reflection;
-using Notification.Application.Service.User.Proj;
-using Notification.Application.Service.WriteRepository.User.Proj.Kat;
-using Notification.Application.Service.WriteRepository.User.Proj.Kat.SarKhat;
+using Notification.Application.Service.User.Proj; 
 using Notification.Application.Service.SMS.Queris.Post;
 using Notification.Application.Service.WriteRepository.SMS.Queris.PostQ;
 using Notification.Application.Service.WriteRepository.SMS.Queris.GetQ;
@@ -32,11 +30,25 @@ using Notification.Application.Service.User.Doc;
 using Notification.Application.ApplicationbyMediator.SMSApplication.Commands.Add.QeueSMS;
 using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.GetQSMS;
 using Microsoft.IdentityModel.Tokens;
+using Notification.Application.Service.WriteRepository.User.Kat;
+using Notification.Application.Service.WriteRepository.User.Kat.SarKhat;
+using Notification.Application.Service.Email.Queris.Get;
+using Notification.Application.Service.Notification.Commands;
+using Notification.Application.Service.Notification.Queris.Get;
+using Notification.Application.Service.WriteRepository.User.Transaction;
+using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.Common.Kafka;
+using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.DocReadUser;
+using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.KhatReadUser;
+using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Doc.DeleteDoc;
+using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Doc.AddDoc;
+using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Khat.AddKhat;
+using Notification.Application.ApplicationbyMediator.UserApplication.Commands.Khat.DeleteKhat;
+using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.TransactionReadUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddSingleton<IHostedService, ApacheKafkaConsumerService>(); 
+
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication("Bearer")
@@ -69,7 +81,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavi
 
 /////////
 ///
-var conectionString = "Data Source=.;Initial Catalog=UniFinall;Integrated Security=true;MultipleActiveResultSets=true";
+var conectionString = "Data Source=.;Initial Catalog=SMSServiceDB;Integrated Security=true;MultipleActiveResultSets=true";
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlServer(conectionString,
@@ -98,6 +110,12 @@ builder.Services.AddSingleton(typeof(ChannelQueue<>));
 //// Add INJECT Write repository
 /// //sms
  //builder.Services.AddScoped<ITaskJob<T>, TaskJob<T>>(); 
+
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IGetEmails, GetEmails>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IGetNotification, GetNotification>();
+
 builder.Services.AddScoped<IGetSMS, GetSMS>();
 builder.Services.AddScoped<ISMSService, SMSService>();//send sms
 builder.Services.AddScoped<IPostSMS, PostSMS>();
@@ -108,17 +126,31 @@ builder.Services.AddScoped<IGetSMS, GetSMS>();
 builder.Services.AddScoped<ILocalUser, LocalUser>();
 builder.Services.AddScoped<IUserDoc, UserDoc>();
 builder.Services.AddScoped<IUserProjects, UserProjects>();
-builder.Services.AddScoped<IMailService, MailService>();
+
+
+builder.Services.AddScoped<ISarKhat, SarKhat>();
+builder.Services.AddScoped<IKhat, Khat>();
+builder.Services.AddScoped<ITransactionss, Transactionss>();
 
 
 
 
+//builder.Services.AddScoped<IMailService, MailService>();
 
+
+
+
+//user
 builder.Services.AddMediatR(typeof(EnrollUserRequest).Assembly);
+builder.Services.AddMediatR(typeof(GetUserByIdRequest).Assembly);
 builder.Services.AddMediatR(typeof(DeleteUserRequest).Assembly);
-
-
-
+//doc
+builder.Services.AddMediatR(typeof(DeleteDocRequest).Assembly);
+builder.Services.AddMediatR(typeof(AddDocRequest).Assembly);
+//khat
+builder.Services.AddMediatR(typeof(AddKhatRequest).Assembly);
+builder.Services.AddMediatR(typeof(DeletKhatRequest).Assembly);
+ //sms
 builder.Services.AddMediatR(typeof(AddSMSinQRequest).Assembly);
 
 /// //////////////////////////////////////
@@ -126,10 +158,8 @@ builder.Services.AddMediatR(typeof(AddSMSinQRequest).Assembly);
 //// Add INJECT Read repository
 ///
 builder.Services.AddScoped<ReadSMSUser>();
-
-
-builder.Services.AddMediatR(typeof(GetUserByIdRequest).Assembly);
-builder.Services.AddMediatR(typeof(GetUserByIdRequest).Assembly);
+builder.Services.AddScoped<ReadUserDoc>();
+builder.Services.AddScoped<ReadUserKhat>();
 
 
 
@@ -139,17 +169,29 @@ builder.Services.AddScoped<IKhat, Khat>();
 builder.Services.AddScoped<ISarKhat, SarKhat>();
 
 
-
 //builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 //builder.Services.AddMediatR(typeof(NotificationAPICQRSEntrypoint).Assembly);
 //builder.Services.AddMediatR(typeof(StartUp).GetTypeInfo().Assembly);
 /// /////////////////////
 /// 
+
+
 //// Add INJECT BackgroundService 
 builder.Services.AddHostedService<AddReadModelWorker>();
 builder.Services.AddHostedService<DeleteReadModleWorker>();
+builder.Services.AddHostedService<EditReadModeWorker>();
 
+builder.Services.AddHostedService<AddDocWorker>();
+builder.Services.AddHostedService<DeleteDocWorker>();
+
+builder.Services.AddHostedService<AddKhatWorker>();
+builder.Services.AddHostedService<DeleteKhatWorker>();
+
+builder.Services.AddHostedService<AddTransactionWorker>();
 //
+
+
+
 builder.Services.AddHostedService<CheckQueueSMSWorker>();
 builder.Services.AddHostedService<SendAnnualSMSWorker>();
 builder.Services.AddHostedService<SendHourlySMSWorker>();

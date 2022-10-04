@@ -22,6 +22,7 @@ using System.Threading.Tasks.Dataflow;
 using Confluent.Kafka;
 using System.Text.Json;
 using System.Net;
+using Notification.Application.Service.WriteRepository.User.Kat;
 
 namespace Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.GetQSMS
 {
@@ -55,36 +56,36 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             _serviceProvider = serviceProvider;
         }
 
-        private async Task<bool> SendOrderRequest(string topic, string message)
-        {
-            ProducerConfig config = new ProducerConfig
-            {
-                BootstrapServers = "localhost:9092",
-                ClientId = Dns.GetHostName()
-            };
+        //private async Task<bool> SendOrderRequest(string topic, string message)
+        //{
+        //    ProducerConfig config = new ProducerConfig
+        //    {
+        //        BootstrapServers = "localhost:9092",
+        //        ClientId = Dns.GetHostName()
+        //    };
 
-            try
-            {
-                using (var producer = new ProducerBuilder
-                <Null, string>(config).Build())
-                {
-                    var result = await producer.ProduceAsync
-                    (topic, new Message<Null, string>
-                    {
-                        Value = message
-                    });
+        //    try
+        //    {
+        //        using (var producer = new ProducerBuilder
+        //        <Null, string>(config).Build())
+        //        {
+        //            var result = await producer.ProduceAsync
+        //            (topic, new Message<Null, string>
+        //            {
+        //                Value = message
+        //            });
 
-                    //Debug.WriteLine($"Delivery Timestamp:{ result.Timestamp.UtcDateTime} ");
-                    return await Task.FromResult(true);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error occured: {ex.Message}");
-            }
+        //            //Debug.WriteLine($"Delivery Timestamp:{ result.Timestamp.UtcDateTime} ");
+        //            return await Task.FromResult(true);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error occured: {ex.Message}");
+        //    }
 
-            return await Task.FromResult(false);
-        }
+        //    return await Task.FromResult(false);
+        //}
 
         //kafka
         //public Task StartAsync(CancellationToken cancellationToken)
@@ -490,6 +491,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             {
 
                 using var scope = _serviceProvider.CreateScope();
+                var Katf = scope.ServiceProvider.GetRequiredService<IKhat>();
 
                 var getQ = scope.ServiceProvider.GetRequiredService<IGetQ>();
                 //var writeRepository2 = scope.ServiceProvider.GetRequiredService<ILocalUser>();
@@ -536,6 +538,14 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                     var smsinq = getQ.GetsSMSinQbyId(item);
                     var user = readRepository.GetByUSerIdAsync(smsinq.IdUser);
 
+                    //string khatSendUser = Katf.GetKhatbyId(smsinq.IdKhatSend).LineNumber.ToString();
+                    string khatSendUser = smsinq.KhatSend.ToString();
+
+                    if (smsinq.DateofLimitet == null || smsinq.DateofLimitet == String.Empty || smsinq.DateofLimitet == "string") smsinq.DateofLimitet = DateTime.Now.ToString();
+                    if (smsinq.DateOfsend == null || smsinq.DateOfsend == String.Empty || smsinq.DateOfsend == "string") smsinq.DateOfsend = DateTime.Now.ToString();
+                    if (smsinq.TimeOfsend == null || smsinq.TimeOfsend == String.Empty || smsinq.TimeOfsend == "string") smsinq.TimeOfsend = DateTime.Now.ToString();
+
+
                     //////////////////////////
                     DateTime dt = DateTime.Now;
                     string day = dt.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
@@ -543,7 +553,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                     // output   "02/20/2016 12:00:00 AM"
                     ////////////////////////////
                     ///
-                    int result = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.dateofLimitet).Date);
+                    int result = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.DateofLimitet).Date);
                     ///
                     if (smsinq != null)
                     {
@@ -554,15 +564,15 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                             //var user=_localUser.GetuserbyIduser(request.userOfSMS.Iduser).PackageTariff.
                             // var user = readRepository.GetByUSerIdAsync(smsinq.IdUser, stoppingToken);
 
-                            if (user.Result.DeadlinePackage >= DateTime.Now)//hanooz Pachage ooo Eetabar Darad?!!
+                            if (user.Result.CridetMeaasage >=1)//hanooz Pachage ooo Eetabar Darad?!!
                             {
-                                int resultdaghighDay = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.dateOfsend).Date);
+                                int resultdaghighDay = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.DateOfsend).Date);
                                 //TimeSpan t1 = Convert.ToDateTime(tim).TimeOfDay;
                                 //TimeSpan t2 = Convert.ToDateTime(smsinq.timeOfsend).TimeOfDay;
                                 //int resultdaghighTim = TimeSpan.Compare(t1, t2);
                                 /////
                                 int t1 = Convert.ToDateTime(tim).TimeOfDay.Hours;
-                                int t2 = Convert.ToDateTime(smsinq.timeOfsend).TimeOfDay.Hours;
+                                int t2 = Convert.ToDateTime(smsinq.TimeOfsend).TimeOfDay.Hours;
 
                                 int resultdaghighTim = 0;//t1==t2
                                 if (t1 < t2) resultdaghighTim = -1;
@@ -575,15 +585,15 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                     {
                                         //1. send smsm by check the condition
 
-                                        var resultSend = _iSMSService.SMSFF(new SMSSendRequest { sender = user.Result.SarKhatNumber, to = smsinq.to, txt = smsinq.txt });
+                                        var resultSend = _iSMSService.SMSFF(new SMSSendRequest { sender = khatSendUser, to = smsinq.to, txt = smsinq.txt });
 
                                         //2. add in sms Table  
-                                        postSMS.PostUserSMS(new RequestPostSMS.RequestSMSUser { Body = smsinq.txt, Resiver = smsinq.to, IdUser = smsinq.IdUser, Status = resultSend.statuse, DateDelivere = resultSend.datesend, DateSend = resultSend.datesend, Delivered = resultSend.deliverd });
+                                        postSMS.PostUserSMS(new RequestPostSMS.RequestSendSMS { Body = smsinq.txt, Resiver =new List<string> { smsinq.to }, IdUser = smsinq.IdUser, SendStatus = resultSend.statuse, DateDelivered = resultSend.datesend, DateOfsend = resultSend.datesend.ToString(), Deliverd = resultSend.deliverd });
 
                                         //this is better.
                                         //3. update from Gueu
-                                        var d = Convert.ToDateTime(smsinq.dateOfsend);
-                                        var t = Convert.ToDateTime(smsinq.timeOfsend);
+                                        var d = Convert.ToDateTime(smsinq.DateOfsend);
+                                        var t = Convert.ToDateTime(smsinq.TimeOfsend);
                                         //DateOnly newdat = new DateOnly(smsinq.dateOfsend.Year, smsinq.dateOfsend.Month, smsinq.dateOfsend.Day + 7);
                                         //getQ.UpdateSMSinQbyId(smsinq.Id, newdat, smsinq.timeOfsend);
 
@@ -614,8 +624,8 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                         //3. update from Gueu
                                         //this is better.
                                         //3. update from Gueu
-                                        var d = Convert.ToDateTime(smsinq.dateOfsend);
-                                        var t = Convert.ToDateTime(smsinq.timeOfsend);
+                                        var d = Convert.ToDateTime(smsinq.DateOfsend);
+                                        var t = Convert.ToDateTime(smsinq.TimeOfsend);
                                         //DateOnly newdat = new DateOnly(smsinq.dateOfsend.Year, smsinq.dateOfsend.Month, smsinq.dateOfsend.Day + 7);
                                         //getQ.UpdateSMSinQbyId(smsinq.Id, newdat, smsinq.timeOfsend);
 
@@ -640,7 +650,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                 }
                                 else //resultdaghighDay >0
                                 {
-                                    postSMS.PostUserSMS(new RequestPostSMS.RequestSMSUser { Body = smsinq.txt, Resiver = smsinq.to, IdUser = smsinq.IdUser, Status = " پیام ارسال نشد به دلیلی اینکه زمان درخواست ارسال پیام شما گذشته است", DateSend = DateTime.Now, Delivered = 0 });
+                                    postSMS.PostUserSMS(new RequestPostSMS.RequestSendSMS { Body = smsinq.txt, Resiver =new List<string> { smsinq.to }, IdUser = smsinq.IdUser, SendStatus = " پیام ارسال نشد به دلیلی اینکه زمان درخواست ارسال پیام شما گذشته است", DateOfsend = DateTime.Now.ToString(), Deliverd = 0 });
 
                                     getQ.DeleteSMSinQbyId(smsinq.Id);
                                 }
@@ -675,7 +685,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                         }
                         else
                         {
-                             postSMS.PostUserSMS(new RequestPostSMS.RequestSMSUser { Body = smsinq.txt, Resiver = smsinq.to, IdUser = smsinq.IdUser, Status = " پیام ارسال نشد به دلیلی اینکه زمان درخواست ارسال پیام شما گذشته است", DateSend = DateTime.Now, Delivered = 0 });
+                             postSMS.PostUserSMS(new RequestPostSMS.RequestSendSMS { Body = smsinq.txt, Resiver =new List<string> { smsinq.to }, IdUser = smsinq.IdUser, SendStatus = " پیام ارسال نشد به دلیلی اینکه زمان درخواست ارسال پیام شما گذشته است", DateOfsend = DateTime.Now.ToString(), Deliverd = 0 });
 
                             getQ.DeleteSMSinQbyId(smsinq.Id);
                         }
@@ -723,7 +733,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             await foreach (var item in _channelHourly.ReturnValue(stoppingToken))
             {
                 var smsinq = getQ.GetsSMSinQbyId(item.IdSMSinQueu);
-                priorityQueueSMSSend.Enqueue(item.IdSMSinQueu, smsinq.periority);
+                priorityQueueSMSSend.Enqueue(item.IdSMSinQueu, (int)smsinq.IdTypeSMS);
             }
         }
         public async IAsyncEnumerable<long> ex2(PriorityQueue<long, int> priorityQueueSMSSend, CancellationToken stoppingToken = default)

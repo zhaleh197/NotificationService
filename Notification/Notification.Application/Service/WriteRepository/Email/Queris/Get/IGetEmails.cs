@@ -8,7 +8,7 @@ namespace Notification.Application.Service.Email.Queris.Get
 {
     public interface IGetEmails
     {
-        public List<ResultGetClientEmails> GetClientEmail();
+        //public List<ResultGetClientEmails> GetClientEmail();
         public List<ResultGetUserEmails> GetUserEmail();
 
     }

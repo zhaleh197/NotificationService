@@ -12,20 +12,19 @@ namespace Notification.Domain.Entities.Common
     {
         //[Key]
         //public long Id { get; set; }
-        public virtual long IdUser { get; set; }
+        public  long IdUser { get; set; }
 
         [ForeignKey("IdUser")]
         public virtual Users User { get; set; }
 
-
+      //  public long IdDocumentType { get; set; }
         public virtual long IdDocumentType { get; set; }
-
-        [ForeignKey("IdDocumentType")]
+         [ForeignKey("IdDocumentType")]
+        //[ForeignKey("Id")]
         public virtual DocumentType DocumentType { get; set; }
 
-
         public string PathofSave { get; set; }
-        public bool Confirmcheck { get; set; }
+        public bool Confirmcheck { get; set; }//1 taiid 0 bad
 
 
     }

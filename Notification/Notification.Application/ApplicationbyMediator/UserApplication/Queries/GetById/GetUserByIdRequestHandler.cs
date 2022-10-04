@@ -21,7 +21,8 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Queries
 
         public Task<SMSUser> Handle(GetUserByIdRequest request, CancellationToken cancellationToken)
         {
-            return _readSMSUser.GetByUSerIdAsync(request.IdUser, cancellationToken);
+            //return _readSMSUser.GetByUSerIdAsync(request.IdUser, cancellationToken);
+            return _readSMSUser.GetByUSerIdAsync(request.IdUser);
         }
 
          

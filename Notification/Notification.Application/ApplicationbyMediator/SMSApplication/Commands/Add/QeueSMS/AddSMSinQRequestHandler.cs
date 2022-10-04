@@ -20,18 +20,18 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Commands
     {
         private readonly IPostSMSQ _postSMSQ;
         private readonly ISMSService _iSMSService;
-      //  private readonly ILocalUser _localUser;
+        private readonly ILocalUser _localUser;
         private readonly ReadSMSUser _readSMSUser;
         private readonly ChannelQueue<SMSAddedinQueue> _checkQueueSMSModelChannel;
         public AddSMSinQRequestHandler(IPostSMSQ postSMSQ,
             ChannelQueue<SMSAddedinQueue> checkQueueSMSModelChannel
-             //,ILocalUser localUser
+             ,ILocalUser localUser
              , ISMSService iSMSServic
             , ReadSMSUser readSMSUser)
         {
             _checkQueueSMSModelChannel = checkQueueSMSModelChannel;
             _postSMSQ = postSMSQ;
-            // _localUser = localUser;
+             _localUser = localUser;
              _iSMSService=iSMSServic;
             _readSMSUser = readSMSUser;
         }
@@ -40,19 +40,43 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Commands
 
         public async Task<AddSMSinQResponse> Handle(AddSMSinQRequest request, CancellationToken cancellationToken = default)
         {
+
+            if (request.schaduleSendSMS.dateofLimitet.Equals(null) || request.schaduleSendSMS.dateofLimitet.ToString()==String.Empty || request.schaduleSendSMS.dateofLimitet.ToString() == "string") request.schaduleSendSMS.dateofLimitet = DateTime.Now;
+            if (request.schaduleSendSMS.dateOfsend == null || request.schaduleSendSMS.dateOfsend == String.Empty || request.schaduleSendSMS.dateOfsend == "string") request.schaduleSendSMS.dateOfsend = DateTime.Now.ToString();
+            if (request.schaduleSendSMS.timeOfsend == null || request.schaduleSendSMS.timeOfsend == String.Empty || request.schaduleSendSMS.timeOfsend == "string") request.schaduleSendSMS.timeOfsend = DateTime.Now.ToString();
+
+
+
             if (request.schaduleSendSMS.dateofLimitet>= DateTime.Now) // Hanoz Ersal Shavad.
             {
-                //var user=_localUser.GetuserbyIduser(request.userOfSMS.Iduser).PackageTariff.
-                var user = _readSMSUser.GetByUSerIdAsync(request.userOfSMS.Iduser, cancellationToken);
+                var user = _localUser.GetuserbyIduser(request.userOfSMS.Iduser);
+                //نمیدانم چرا گت کردن از دیتابیست مونگو کار نمیکند. شاید اینجکشنی کم گذاشته ام. بررسی شود 14010623
+                //var user = _readSMSUser.GetByUSerIdAsync(request.userOfSMS.Iduser,cancellationToken);
+                //var user = _readSMSUser.GetByUSerIdAsync(request.userOfSMS.Iduser, cancellationToken);
 
-                if (user.Result.DeadlinePackage >= DateTime.Now)//hanooz Pachage ooo Eetabar Darad?!!
-                {
-                    var command = _postSMSQ.PostUserSMSinQ(new RequestQeueSMSmodel { dateofLimitet = request.schaduleSendSMS.dateofLimitet, dateOfsend = request.schaduleSendSMS.dateOfsend, IdUser = request.userOfSMS.Iduser, periodSendly = request.schaduleSendSMS.periodSendly, periority = request.schaduleSendSMS.periority, to = request.message.to, timeOfsend = request.schaduleSendSMS.timeOfsend, txt = request.message.txt, TypeofResiver = request.message.TypeofResiver });
-
+                //if (user.Result.CridetMeaasage >= 1)//hanooz Pachage ooo Eetabar Darad?!!
+                //{
+                    if (user.CridetMeaasage >= 1)//hanooz Pachage ooo Eetabar Darad?!!
+                    {
+                        var command = _postSMSQ.PostUserSMSinQ(
+                       new RequestQeueSMSmodel {
+                        DateofLimitet = request.schaduleSendSMS.dateofLimitet,
+                        DateOfsend = request.schaduleSendSMS.dateOfsend,
+                        IdUser = request.userOfSMS.Iduser,
+                        periodSendly = request.schaduleSendSMS.periodSendly, 
+                        periority = request.schaduleSendSMS.periority, 
+                        to = request.message.to, 
+                        TimeOfsend = request.schaduleSendSMS.timeOfsend,
+                        txt = request.message.txt,
+                        TypeofResiver = request.message.TypeofResiver, 
+                        KhatSend= request.message.KhatSend,
+                        IdTypeSMS=request.message.IdTypeSMS
+                    });
+                   
 
                     //inja if ha ra benevisdam na dar channel ha.
                     //if user pachageshash zaman dashteh bashad
-                    
+
                     //if 
                     for (int i = 0; i < command.Count; i++)//by size (to)
                     {
@@ -64,7 +88,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Commands
                 else
                 {
 
-                    _iSMSService.SMSFF(new SMSSendRequest { sender= "10000900900300", to= request.userOfSMS.PhoneUser ,txt= " .  .کاربر گرامی پکیج خود را شارژ کنید. مدت اعتبار ان به پایان رسیده است. " });
+                    _iSMSService.SMSFF(new SMSSendRequest { sender= "10000900900300", to= request.userOfSMS.PhoneUser ,txt= " .  .کاربر گرامی حساب خود را شارژ کنید. اعتبار ان به پایان رسیده است. " });
                     // کاربر گرامی پکیج خود را شارژ کنید.
                     //user desActii ve.
                     //API FOR Disactive user// فعلا نیاز نیست. با همین ددلاین پکیج فعال یا غیر فعال یودن کاربر مشخص است.

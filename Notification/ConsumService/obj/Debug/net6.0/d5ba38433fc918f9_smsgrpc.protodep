@@ -1,3 +1,0 @@
-obj\Debug\net6.0/Smsgrpc.cs \
-obj\Debug\net6.0/SmsgrpcGrpc.cs: C:/Users/Tech-8/.nuget/packages/grpc.tools/2.40.0/build/native/include/google/protobuf/timestamp.proto\
- ../ServerGRPCNotification/Protos/smsgrpc.proto

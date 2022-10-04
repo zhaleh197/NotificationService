@@ -16,19 +16,19 @@ namespace Notification.Application.Service.Email.Queris.Get
         {
             _context = context;
         }
-        public List<ResultGetClientEmails> GetClientEmail()
-        {
-            var res=_context.EmailClients.AsQueryable().ToList();
+        //public List<ResultGetClientEmails> GetClientEmail()
+        //{
+        //    var res=_context.EmailClients.AsQueryable().ToList();
 
-            var config = new MapperConfiguration(cfg =>
-                cfg.CreateMap<List<EmailClient>, List<ResultGetClientEmails>>()
-            );
-            var mapper = new Mapper(config);
+        //    var config = new MapperConfiguration(cfg =>
+        //        cfg.CreateMap<List<EmailClient>, List<ResultGetClientEmails>>()
+        //    );
+        //    var mapper = new Mapper(config);
 
-            var result = mapper.Map<List<ResultGetClientEmails>>(res);
-            //AutoMapper();
-            return result;
-        }
+        //    var result = mapper.Map<List<ResultGetClientEmails>>(res);
+        //    //AutoMapper();
+        //    return result;
+        //}
         public List<ResultGetUserEmails> GetUserEmail()
         {
             var res = _context.EmailUsers.AsQueryable().ToList();

@@ -1,9 +1,5 @@
-﻿using Notification.Application.Interface.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Notification.Application.Interface.Context;
 
 namespace Notification.Application.Service.User.Doc
 {
@@ -22,7 +18,7 @@ namespace Notification.Application.Service.User.Doc
             return conORuncon;
         }
 
-        public string SendDoc(DocModel docs)
+        public long SendDoc(DocModel docs)
         {
 
             var strm = docs.base64imagopDoc;
@@ -30,7 +26,7 @@ namespace Notification.Application.Service.User.Doc
             var myfilename = string.Format(@"{0}", Guid.NewGuid());
 
             //Generate unique filename
-            string filepath = "Uploads/" + myfilename+ docs.idUser + docs.idDocumentType + ".zip";
+            string filepath = "Uploads/" + myfilename + docs.idUser + docs.idDocumentType + ".jpg";
             var bytess = Convert.FromBase64String(strm);
             using (var imageFile = new FileStream(filepath, FileMode.Create))
             {
@@ -40,20 +36,22 @@ namespace Notification.Application.Service.User.Doc
                 //  await imageFile.CopyToAsync(fileStream);
             }
             string pathsavefile = "file:///C:/Users/Tech-8/source/repos/CQRSNOTIFICATION14010519-Git/Notification/NotificationAPICQRS/" + filepath;
-            _context.DocumentsUser.Add(new Domain.Entities.Common.DocumentsUser
-            {
-                DocumentType = _context.DocumentType.Where(d => d.Id == docs.idDocumentType).FirstOrDefault(),
-                PathofSave = pathsavefile,
-                Confirmcheck=false,
-                User=_context.Users.Where(u=>u.Id==docs.idUser).FirstOrDefault(),
-                InsertTime=DateTime.Now,
-                IsRemoved=false,
-                RemoveTime=null,
-                UpdateTime=null
-            });
-            _context.SaveChanges();
 
-            return pathsavefile;
+            var d = new Domain.Entities.Common.DocumentsUser
+            {
+                IdDocumentType = docs.idDocumentType,
+                PathofSave = pathsavefile,
+                Confirmcheck = false,
+                IdUser = docs.idUser,
+                IsRemoved = false
+            };
+
+            var result = _context.DocumentsUser.Add(d);
+
+
+            _context.SaveChanges();
+            //_context.SaveChangesAsync();
+            return result.Entity.Id;
         }
         public long DeletDoc(long iddoc)
         {
@@ -64,10 +62,57 @@ namespace Notification.Application.Service.User.Doc
         }
         public DocModelresponse getDocpathbyIDUser(long iduser)
         {
-            var v=_context.DocumentsUser.Where(d => d.IdUser==iduser).FirstOrDefault();
-            if(v!=null) return new DocModelresponse { path=v.PathofSave, Confirmcheck=v.Confirmcheck,idDocumentType=v.IdDocumentType,idUser=v.IdUser};
+            var v = _context.DocumentsUser.Where(d => d.IdUser == iduser).FirstOrDefault();
+            if (v != null) return new DocModelresponse { path = v.PathofSave, Confirmcheck = v.Confirmcheck, idDocumentType = v.IdDocumentType, idUser = v.IdUser };
             return null;
 
+        }
+
+        public string getDocTypebyId(long id)
+        {
+            return _context.DocumentType.Where(d => d.Id == id).FirstOrDefault().Title;
+
+        }
+
+        public List<DocModelresponse> getDocpathbyIDUserList(long iduser)
+        {
+            var vv = _context.DocumentsUser.Include(t => t.DocumentType).Where(d => d.IdUser == iduser);
+
+
+            if (vv != null && vv.Count() > 0)
+            {
+                var Result = new List<DocModelresponse>();
+                foreach (var v in vv)
+                    Result.Add(new DocModelresponse
+                    {
+                        path = v.PathofSave,
+                        Confirmcheck = v.Confirmcheck,
+                        idDocumentType = v.IdDocumentType,
+                        idUser = v.IdUser,
+                        DocumentType = v.DocumentType.Title
+                    });
+                return Result;
+            }
+
+            return null;
+
+        }
+
+        public DocModelresponse getDocbyId(long id)
+        {
+            var doc = _context.DocumentsUser.Include(t => t.DocumentType).Where(d => d.Id == id).FirstOrDefault();
+            if (doc != null)
+            {
+                return new DocModelresponse
+                {
+                    path = doc.PathofSave,
+                    Confirmcheck = doc.Confirmcheck,
+                    idDocumentType = doc.IdDocumentType,
+                    idUser = doc.IdUser,
+                    DocumentType = doc.DocumentType.Title
+                };
+            }
+            return null;
         }
     }
 }

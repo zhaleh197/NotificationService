@@ -7,6 +7,7 @@ using Notification.Application.Service.ReadRepository.User;
 using Notification.Application.Service.SMS.Commands;
 using Notification.Application.Service.SMS.Queris.Post;
 using Notification.Application.Service.WriteRepository.SMS.Queris.GetQ;
+using Notification.Application.Service.WriteRepository.User.Kat;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -52,10 +53,11 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
 
             using var scope = _serviceProvider.CreateScope();
             var getQ = scope.ServiceProvider.GetRequiredService<IGetQ>();
+
             await foreach (var item in _channelDaily.ReturnValue(stoppingToken))
             {
                 var smsinq = getQ.GetsSMSinQbyId(item.IdSMSinQueu);
-                priorityQueueSMSSend.Enqueue(item.IdSMSinQueu, smsinq.periority);
+                priorityQueueSMSSend.Enqueue(item.IdSMSinQueu,(int) smsinq.IdTypeSMS);
             }
         }
 
@@ -64,6 +66,10 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             while (!stoppingToken.IsCancellationRequested)
             {
                 using var scope = _serviceProvider.CreateScope();
+
+               
+
+                var Katf = scope.ServiceProvider.GetRequiredService<IKhat>();
 
                 var getQ = scope.ServiceProvider.GetRequiredService<IGetQ>();
                 //var writeRepository2 = scope.ServiceProvider.GetRequiredService<ILocalUser>();
@@ -104,6 +110,13 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
 
                             var user = readRepository.GetByUSerIdAsync(smsinq.IdUser);
 
+                            //string khatSendUser = Katf.GetKhatbyId(smsinq.IdKhatSend).LineNumber.ToString();
+                            string khatSendUser = smsinq.KhatSend.ToString();
+
+                            if (smsinq.DateofLimitet == null || smsinq.DateofLimitet == String.Empty || smsinq.DateofLimitet == "string") smsinq.DateofLimitet = DateTime.Now.ToString();
+                            if (smsinq.DateOfsend == null || smsinq.DateOfsend == String.Empty || smsinq.DateOfsend == "string") smsinq.DateOfsend = DateTime.Now.ToString();
+                            if (smsinq.TimeOfsend == null || smsinq.TimeOfsend == String.Empty || smsinq.TimeOfsend == "string") smsinq.TimeOfsend = DateTime.Now.ToString();
+
                             //////////////////////////
                             DateTime dt = DateTime.Now;
                             string day = dt.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
@@ -111,7 +124,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                             // output   "02/20/2016 12:00:00 AM"
                             ////////////////////////////
                             ///
-                            int result = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.dateofLimitet).Date);
+                            int result = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.DateofLimitet).Date);
                             ///
                             if (smsinq != null)
                             {
@@ -122,14 +135,14 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                     //var user=_localUser.GetuserbyIduser(request.userOfSMS.Iduser).PackageTariff.
                                     // var user = readRepository.GetByUSerIdAsync(smsinq.IdUser, stoppingToken);
 
-                                    if (user.Result.DeadlinePackage >= DateTime.Now)//hanooz Pachage ooo Eetabar Darad?!!
+                                    if (user.Result.CridetMeaasage >= 1)//hanooz Pachage ooo Eetabar Darad?!!
                                     {
-                                        int resultdaghighDay = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.dateOfsend).Date);
+                                        int resultdaghighDay = DateTime.Compare(Convert.ToDateTime(day).Date, Convert.ToDateTime(smsinq.DateOfsend).Date);
                                         //TimeSpan t1 = Convert.ToDateTime(tim).TimeOfDay ;
                                         //TimeSpan t2 = Convert.ToDateTime(smsinq.timeOfsend).TimeOfDay ;
                                         //int resultdaghighTim = TimeSpan.Compare(t1, t2);
                                         int t1 = Convert.ToDateTime(tim).TimeOfDay.Hours;
-                                        int t2 = Convert.ToDateTime(smsinq.timeOfsend).TimeOfDay.Hours;
+                                        int t2 = Convert.ToDateTime(smsinq.TimeOfsend).TimeOfDay.Hours;
 
                                         int resultdaghighTim = t1 == t2 ? 1 : 0;
 
@@ -140,15 +153,15 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                         {
                                             //1. send smsm by check the condition
 
-                                            var resultSend = _iSMSService.SMSFF(new SMSSendRequest { sender = user.Result.SarKhatNumber, to = smsinq.to, txt = smsinq.txt });
+                                            var resultSend = _iSMSService.SMSFF(new SMSSendRequest { sender = khatSendUser, to = smsinq.to, txt = smsinq.txt });
 
                                             //2. add in sms Table  
-                                            postSMS.PostUserSMS(new RequestPostSMS.RequestSMSUser { Body = smsinq.txt, Resiver = smsinq.to, IdUser = smsinq.IdUser, Status = resultSend.statuse, Delivered = resultSend.deliverd, DateSend = DateTime.Now, DateDelivere = resultSend.datesend });
+                                            postSMS.PostUserSMS(new RequestPostSMS.RequestSendSMS { Body = smsinq.txt, Resiver =new List<string> { smsinq.to }, IdUser = smsinq.IdUser, SendStatus = resultSend.statuse, Deliverd = resultSend.deliverd, DateOfsend = DateTime.Now.ToString(), DateDelivered = resultSend.datesend });
 
                                             //this is better.
                                             //3. update from Gueu
-                                            var d = Convert.ToDateTime(smsinq.dateOfsend);
-                                            var t = Convert.ToDateTime(smsinq.timeOfsend);
+                                            var d = Convert.ToDateTime(smsinq.DateOfsend);
+                                            var t = Convert.ToDateTime(smsinq.TimeOfsend);
                                             //DateOnly newdat = new DateOnly(smsinq.dateOfsend.Year, smsinq.dateOfsend.Month, smsinq.dateOfsend.Day + 7);
                                             //getQ.UpdateSMSinQbyId(smsinq.Id, newdat, smsinq.timeOfsend);
 
@@ -176,8 +189,8 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                             //3. update from Gueu
                                             //this is better.
                                             //3. update from Gueu
-                                            var d = Convert.ToDateTime(smsinq.dateOfsend);
-                                            var t = Convert.ToDateTime(smsinq.timeOfsend);
+                                            var d = Convert.ToDateTime(smsinq.DateOfsend);
+                                            var t = Convert.ToDateTime(smsinq.TimeOfsend);
                                             //DateOnly newdat = new DateOnly(smsinq.dateOfsend.Year, smsinq.dateOfsend.Month, smsinq.dateOfsend.Day + 7);
                                             //getQ.UpdateSMSinQbyId(smsinq.Id, newdat, smsinq.timeOfsend);
 
@@ -192,7 +205,8 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                         }
 
                                     }
-                                    if (user.Result.DeadlinePackage.Day <= DateTime.Now.Day + 1)
+                                    //  if (user.Result.DeadlinePackage.Day <= DateTime.Now.Day + 1)
+                                    if (user.Result.CreditFinance < 1)
                                     {
 
                                         // eliminate from que in db

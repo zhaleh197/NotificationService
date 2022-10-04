@@ -19,14 +19,14 @@ namespace Notification.Application.Service.User.Proj
         public ProjModel GetprobyId(long id)
         {
             var t = _context.Projects.Where(p => p.Id == id&& p.IsRemoved==false).FirstOrDefault();
-            ProjModel t1 = new ProjModel { Id = t.Id,TitleProject = t.TitleProject,idUser=t.IdUser,Description=t.Description};
+            ProjModel t1 = new ProjModel { Id = t.Id,TitleProject = t.TitleProject,idUser=t.KhototUser.IdUser,Description=t.Description,Khat=t.KhototUser.KhatNumber.ToString()};
             return t1;
         }
 
         public ProjModel GetprobyIdUser(long id)
         {
-            var t = _context.Projects.Where(p => p.IdUser == id && p.IsRemoved == false).FirstOrDefault();
-            ProjModel t1 = new ProjModel { Id = t.Id,TitleProject = t.TitleProject, idUser = t.IdUser, Description = t.Description };
+            var t = _context.Projects.Where(p => p.KhototUser.IdUser == id && p.IsRemoved == false).FirstOrDefault();
+            ProjModel t1 = new ProjModel { Id = t.Id, TitleProject = t.TitleProject, idUser = t.KhototUser.IdUser, Description = t.Description, Khat = t.KhototUser.KhatNumber.ToString() };
             return t1;
         }
         public List<ProjModel> GetAllPro()
@@ -37,25 +37,21 @@ namespace Notification.Application.Service.User.Proj
             var ProsList = t.Select(p => new ProjModel
             {
                 Description = p.Description,
-                idUser = p.IdUser,  
+                idUser = p.KhototUser.IdUser,  
                 TitleProject= p.TitleProject,
+                Khat=p.KhototUser.KhatNumber.ToString(),
                 Id=p.Id
             }).ToList();
             return ProsList;
         }
 
-        public long AddPro(ProjModel pro)
+        public long AddPro(ADDProjModel pro)
         {
            var t=_context.Projects.Add(new Domain.Entities.Common.Projects
             {
                 Description = pro.Description,
                 TitleProject = pro.TitleProject,
-                IdUser=pro.idUser,
-                //User=_context.Users.Where(u=>u.Id==pro.idUser).FirstOrDefault(),
-                InsertTime = DateTime.Now,
-                IsRemoved = false,
-                RemoveTime = null,
-                UpdateTime = null
+                IdKhototUser=pro.IdKhat
             });
 
             _context.SaveChanges();
@@ -70,5 +66,6 @@ namespace Notification.Application.Service.User.Proj
             return iddoc;
         }
 
+         
     }
 }

@@ -10,7 +10,14 @@ namespace Notification.Application.Service.User.Proj
     {
         public string TitleProject { get; set; }
         public string Description { get; set; }
-        public long  idUser { get; set; }
+        public string Khat { get; set; }
+        public long idUser { get; set; }
         public long Id { get; set; }
+    }
+    public class ADDProjModel
+    {
+        public string TitleProject { get; set; }
+        public string Description { get; set; }
+        public long IdKhat { get; set; }
     }
 }
