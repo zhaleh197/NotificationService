@@ -15,13 +15,13 @@ namespace GrpcNotification.Services
         //private readonly IGetSMS _getSMS;
     
         //public IDatabaseContext _dbContext;
-        public SMSGrpcsService(ISMSService sMSService,
+        public SMSGrpcsService(//ISMSService sMSService,
             ILogger<SMSGrpcsService> logger,
             //IDatabaseContext dbContext,
              IGetSMS getSMS)
         {
             _logger = logger;
-            _sMSService = sMSService;
+           // _sMSService = sMSService;
             //_dbContext = dbContext;
             //_getSMS = getSMS;
         }
@@ -30,7 +30,7 @@ namespace GrpcNotification.Services
             try
             {
                //var f = "";
-                _sMSService.SMSF(new SMSSendRequest2 { to = request.To, txt = request.Txt });
+              //  _sMSService.SMSF(new SMSSendRequest2 { to = request.To, txt = request.Txt });
 
             return  Task.FromResult(
                 new SMSresponse

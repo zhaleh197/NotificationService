@@ -132,7 +132,7 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.PostQ
             {
                 result = "Persian";
             }
-            if (text.Any(c => c >= 0x20 && c <= 0x7E))
+           else if (text.Any(c => c >= 0x20 && c <= 0x7E))
             {
                 result = "English";
             }
@@ -234,7 +234,9 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.PostQ
                         IdTypeSMS = request.IdTypeSMS,
                     };
                     var t = _context.QeueofSMs.Add(smsq);
+                   // _context.SaveChangesAsync();
                     _context.SaveChanges();
+                   // _context.SaveChangesAsync();
                     re.Add(t.Entity.Id);
                 }
                 return re;
@@ -289,7 +291,11 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.PostQ
                         IdTypeSMS = request.IdTypeSMS,
                     };
                     var t = _context.QeueofSMs.Add(smsq);
+                   // _context.SaveChangesAsync();
                     _context.SaveChanges();
+                    _context.Entry(smsq); 
+                    _context.Entry<QeueofSMS>(smsq).Reload();
+                    // _context.SaveChangesAsync();
                     re.Add(t.Entity.Id);
                 }
                 return re;

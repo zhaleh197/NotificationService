@@ -39,10 +39,7 @@ namespace NotificationAPICQRS.Controllers
         public async Task<IActionResult> DeleteKhat([FromQuery] DeletKhatRequest model, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(model, cancellationToken));
-        }
-
-
-
+        } 
         ///////////////////////////////////
         ////KHAT//
         //[HttpGet]

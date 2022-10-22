@@ -41,6 +41,11 @@
     <Folder Include="ApplicationbyMediator\SMSApplication\Queries\GetAllinQSMS\" />
     <Folder Include="ApplicationbyMediator\UserApplication\Commands\User\Update\" />
     <Folder Include="ApplicationbyMediator\UserApplication\Queries\GetAll\" />
+    <Folder Include="Service\WriteRepository\User\Setting\AnnouncementSMS\" />
+    <Folder Include="Service\WriteRepository\User\Setting\PatternSMS\Queris\Get\" />
+    <Folder Include="Service\WriteRepository\User\Setting\Phonebook\GroupFrinds\" />
+    <Folder Include="Service\WriteRepository\User\Setting\StockSMS\Commands\Add\" />
+    <Folder Include="Service\WriteRepository\User\Setting\StockSMS\Queris\Get\" />
   </ItemGroup>
 
 </Project>

@@ -28,6 +28,7 @@ using Notification.Domain.Entities.WriteModels.SMS.Common;
 using Notification.Domain.Entities.WriteModels.SMS.Common.Khat;
 using Notification.Domain.Entities.WriteModels.SMS.SMS;
 using Notification.Domain.Entities.WriteModels.SMS.Common.OperatorsSMS;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Notification.Persistance.Context
 {
@@ -246,5 +247,19 @@ namespace Notification.Persistance.Context
         }
 
 
+
+        //درست شد. اد دیبی کانتکس تابع دا در ای دیتابس کانتکس اد کردم.
+
+        /// <summary>
+        /// این را برای رفرش دیتابیس میخوایتم ولی اشتباه است  میبایست خودش میداشت. الان من اینجا اصلا پیاده سازی نکردم همیجوری نوشتم.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        //object IDatabaseContext.Entry<T>(T res)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

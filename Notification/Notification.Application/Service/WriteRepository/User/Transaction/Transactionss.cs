@@ -105,7 +105,9 @@ namespace Notification.Application.Service.WriteRepository.User.Transaction
         {
 
             _context.Transactions.Remove(_context.Transactions.Where(d => d.Id == id ).FirstOrDefault());
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return id ;
         }
 

@@ -111,42 +111,42 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9372),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5031),
                             IsRemoved = false,
                             Title = "مدارک احراز هویت"
                         },
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9379),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5046),
                             IsRemoved = false,
                             Title = "شناسنامه"
                         },
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9381),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5048),
                             IsRemoved = false,
                             Title = "کارت ملی"
                         },
                         new
                         {
                             Id = 4L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9383),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5051),
                             IsRemoved = false,
                             Title = "فیش پرداختی"
                         },
                         new
                         {
                             Id = 5L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9386),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5053),
                             IsRemoved = false,
                             Title = "جواز"
                         },
                         new
                         {
                             Id = 6L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9388),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5057),
                             IsRemoved = false,
                             Title = "خرید خط"
                         });
@@ -272,14 +272,14 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9767),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5481),
                             IsRemoved = false,
                             Title = "Real"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9772),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5486),
                             IsRemoved = false,
                             Title = "Legal"
                         });
@@ -595,7 +595,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9672),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5375),
                             IsRemoved = false,
                             PricePackage = 100000L,
                             TitlePackage = "Golden",
@@ -604,7 +604,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9681),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5384),
                             IsRemoved = false,
                             PricePackage = 75000L,
                             TitlePackage = "Silver",
@@ -613,7 +613,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9684),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5387),
                             IsRemoved = false,
                             PricePackage = 50000L,
                             TitlePackage = "Bronze",
@@ -622,7 +622,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 4L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9686),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5390),
                             IsRemoved = false,
                             PricePackage = 0L,
                             TitlePackage = "Ziro",
@@ -802,21 +802,21 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9059),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(4749),
                             IsRemoved = false,
                             Title = "مدیر"
                         },
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9112),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(4812),
                             IsRemoved = false,
                             Title = "کاربر"
                         },
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9115),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(4816),
                             IsRemoved = false,
                             Title = "اپراتور"
                         });
@@ -1082,7 +1082,7 @@ namespace Notification.Persistance.Migrations
                             BasePrice = 77.0,
                             EnglishZarib = 1.2,
                             HamrahAvalZarib = 1.0,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9715),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5422),
                             IranselZarib = 1.2,
                             IsRemoved = false,
                             PersianZarib = 1.0,
@@ -1097,7 +1097,7 @@ namespace Notification.Persistance.Migrations
                             BasePrice = 82.0,
                             EnglishZarib = 1.2,
                             HamrahAvalZarib = 1.0,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9724),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5435),
                             IranselZarib = 1.2,
                             IsRemoved = false,
                             PersianZarib = 1.0,
@@ -1112,7 +1112,7 @@ namespace Notification.Persistance.Migrations
                             BasePrice = 77.599999999999994,
                             EnglishZarib = 1.2,
                             HamrahAvalZarib = 1.0,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9728),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5438),
                             IranselZarib = 1.2,
                             IsRemoved = false,
                             PersianZarib = 1.0,
@@ -1127,7 +1127,7 @@ namespace Notification.Persistance.Migrations
                             BasePrice = 77.599999999999994,
                             EnglishZarib = 1.2,
                             HamrahAvalZarib = 1.0,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9731),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5444),
                             IranselZarib = 1.2,
                             IsRemoved = false,
                             PersianZarib = 1.0,
@@ -1503,7 +1503,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9428),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5110),
                             IsRemoved = false,
                             NumberofVariable = 1,
                             TextPatern = "  کد تایید شما = %1% است.",
@@ -1512,7 +1512,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9434),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5116),
                             IsRemoved = false,
                             NumberofVariable = 1,
                             TextPatern = " به اپلیکیشن %1% خوش امدید.",
@@ -1521,7 +1521,7 @@ namespace Notification.Persistance.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2022, 9, 20, 18, 10, 1, 727, DateTimeKind.Local).AddTicks(9438),
+                            InsertTime = new DateTime(2022, 10, 6, 12, 38, 54, 753, DateTimeKind.Local).AddTicks(5120),
                             IsRemoved = false,
                             NumberofVariable = 2,
                             TextPatern = "  سلام. %1% عزیز به اپلیکیشن %2% خوش آمدید.",

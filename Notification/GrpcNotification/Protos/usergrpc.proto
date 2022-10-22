@@ -1,0 +1,21 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcNotification";
+package userGrpc;
+
+service UserGrpc {
+  // Sends a greeting
+    rpc Enroll (UserEnrollRequest) returns (UserEnrollresponse);
+
+}
+message UserEnrollRequest {
+int32 IdUser=1;
+string Phone=2;
+int32 IdRole=3;//baraye kam kardane pichidegi
+int32 IdUsertype=4;
+int32 CreditFinance=5;//Etebar// Mr Nazari saied here isnt any things of Wallet to save in here.
+int32 CridetMeaasage=6;// 100 message 
+
+}
+message UserEnrollresponse {
+  int32 Id  = 1;
+}

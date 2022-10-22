@@ -283,7 +283,7 @@ namespace ApacheKafkaConsumerDemo
 
 
         //this is worked by postman
-        public Task<SMSSendResponse>  StartAsync(CancellationToken cancellationToken)
+        public Task   StartAsync(CancellationToken cancellationToken)
         {
             var config = new ConsumerConfig
             {
@@ -321,8 +321,8 @@ namespace ApacheKafkaConsumerDemo
                             // 
                             Debug.WriteLine($"Send SMS by periority 1. zhale BY " + orderRequest.topic);
 
-                            //return Task.FromResult(new OrderProcessingRequest { cost = res.cost, datesend = res.datesend.ToString(), deliverd = res.deliverd, statuse = res.statuse });
-                            return res;
+                            return Task.FromResult(new OrderProcessingRequest { cost = res.cost, datesend = res.datesend.ToString(), deliverd = res.deliverd, statuse = res.statuse });
+                           // return res;
                         }
                     }
                     catch (OperationCanceledException)
@@ -335,8 +335,8 @@ namespace ApacheKafkaConsumerDemo
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
-
-            return null;
+            return Task.CompletedTask;
+           // return null;
         }
         //
         public Task StopAsync(CancellationToken cancellationToken)

@@ -58,3 +58,15 @@ C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notificat
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Domain\obj\Debug\net6.0\refint\Notification.Domain.dll
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.pdb
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\Notification.Domain\obj\Debug\net6.0\ref\Notification.Domain.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\bin\Debug\net6.0\Notification.Domain.deps.json
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\bin\Debug\net6.0\Notification.Domain.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\bin\Debug\net6.0\Notification.Domain.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.csproj.AssemblyReference.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.AssemblyInfoInputs.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.AssemblyInfo.cs
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\refint\Notification.Domain.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\Notification.Domain.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Domain\obj\Debug\net6.0\ref\Notification.Domain.dll

@@ -199,10 +199,10 @@ builder.Services.AddHostedService<SendDailySMSWorker>();
 builder.Services.AddHostedService<SendMounthlySMSWorker>();
 builder.Services.AddHostedService<SendWeeklySMSWorker>();
 builder.Services.AddHostedService<SendOnceSMSWorker>();
+builder.Services.AddHostedService<SendOnceSMSWorker2>();
 /////////
 
-
-//builder.Services.AddControllers();
+ 
 #endregion
 #region Swagger
 builder.Services.AddSwaggerGen(c =>

@@ -40,9 +40,9 @@ namespace ServerGRPCNotification.Services
             ILogger<SMSGrpcsService> logger,
             IDatabaseContext dbContext,
             IGetSMS getSMS,
-            IPostSMS postSMS,
-            //ITaskJob<ResultGetQeueUserSMS> taskJob,
-            ITaskJobs taskJob
+            IPostSMS postSMS
+            //,ITaskJob<ResultGetQeueUserSMS> taskJob,
+           , ITaskJobs taskJob
 
             )
         {
@@ -78,100 +78,99 @@ namespace ServerGRPCNotification.Services
 
 
 
-        #region GetQeueUserSMS
-        public override async Task<ListResultGetQeueUserSMS1> GetQeueUserSMS(Empty request, ServerCallContext context)
-        {
-            ListResultGetQeueUserSMS1 response = new ListResultGetQeueUserSMS1();
-            var r = _getSMS.GetQeueUserSMS();
+        //#region GetQeueUserSMS
+        //public override async Task<ListResultGetQeueUserSMS1> GetQeueUserSMS(Empty request, ServerCallContext context)
+        //{
+        //    ListResultGetQeueUserSMS1 response = new ListResultGetQeueUserSMS1();
+        //    var r = _getSMS.GetQeueUserSMS();
 
-            //var usseerrss = from us in r
-            //                select new ResultGetQeueUserSMS1()
-            //                {
-            //                    //Resiver=us.Resiver,
-            //                    Body = us.Body,
-            //                    DateSendStart = Timestamp.FromDateTimeOffset(us.DateSendStart),
-            //                    Id = us.Id,
-            //                    IdUser = us.IdUser,
-            //                    Periority = us.Periority,
-            //                    Type = us.Type
-            //                };
+        //    //var usseerrss = from us in r
+        //    //                select new ResultGetQeueUserSMS1()
+        //    //                {
+        //    //                    //Resiver=us.Resiver,
+        //    //                    Body = us.Body,
+        //    //                    DateSendStart = Timestamp.FromDateTimeOffset(us.DateSendStart),
+        //    //                    Id = us.Id,
+        //    //                    IdUser = us.IdUser,
+        //    //                    Periority = us.Periority,
+        //    //                    Type = us.Type
+        //    //                };
 
-            ////== Mapper.ReferenceEquals(response, r);
-            var usseerrss = new List<ResultGetQeueUserSMS1>();
-            foreach (var us in r)
-            {
-                var grpcitem = new ResultGetQeueUserSMS1();
-                grpcitem.Body = us.Body;
-                grpcitem.DateSendStart = Timestamp.FromDateTimeOffset(us.DateSendStart);
-                grpcitem.Id = us.Id;
-                grpcitem.IdUser = us.IdUser;
-                grpcitem.Type =us.Type;
-                grpcitem.Periority = us.Periority;
+        //    ////== Mapper.ReferenceEquals(response, r);
+        //    var usseerrss = new List<ResultGetQeueUserSMS1>();
+        //    foreach (var us in r)
+        //    {
+        //        var grpcitem = new ResultGetQeueUserSMS1();
+        //        grpcitem.Body = us.Body;
+        //        grpcitem.DateSendStart = Timestamp.FromDateTimeOffset(us.DateSendStart);
+        //        grpcitem.Id = us.Id;
+        //        grpcitem.IdUser = us.IdUser;
+        //        grpcitem.Type = us.Type;
+        //        grpcitem.Periority = us.Periority; 
+        //        grpcitem.Resiver.AddRange(us.Resiver);
+        //        usseerrss.Add(grpcitem);
+        //    }
+        //    response.Items.AddRange(usseerrss.ToArray());
 
-                grpcitem.Resiver.AddRange(us.Resiver);
-                usseerrss.Add(grpcitem);
-            }
-            response.Items.AddRange(usseerrss.ToArray());
+        //    //_taskJob.Qeuetask.Enqueue(new ResultGetQeueUserSMS
+        //    //{
+        //    //    Body = response.Items[0].Body,
+        //    //    DateSendStart = response.Items[0].DateSendStart,
+        //    //    Periority = response.Items[0].Periority,
+        //    //    Resiver = response.Items[0].Resiver,
+        //    //    Type = response.Items[0].Type
+        //    //}
+        //    //);
 
-            //_taskJob.Qeuetask.Enqueue(new ResultGetQeueUserSMS
-            //{
-            //    Body = response.Items[0].Body,
-            //    DateSendStart = response.Items[0].DateSendStart,
-            //    Periority = response.Items[0].Periority,
-            //    Resiver = response.Items[0].Resiver,
-            //    Type = response.Items[0].Type
-            //}
-            //);
+        //    return await Task.FromResult(response);
+        //}
+        //#endregion
 
-            return await Task.FromResult(response);
-        }
-        #endregion
+        //#region GetUserSMS
+        //public override async Task<ListResultGetUserSMS1> GetUserSMS(Empty request, ServerCallContext context)
+        //{
+        //    ListResultGetUserSMS1 response = new ListResultGetUserSMS1();
 
-        #region GetUserSMS
-        public override async Task<ListResultGetUserSMS1> GetUserSMS(Empty request, ServerCallContext context)
-        {
-            ListResultGetUserSMS1 response = new ListResultGetUserSMS1();
+        //    var r = _getSMS.GetUserSMS();
+        //    //var t = new ListResivers();
+        //    //foreach(  var rr in r )
+        //    //    t.Resiver.Add(rr.Resiver);
 
-            var r = _getSMS.GetUserSMS();
-            //var t = new ListResivers();
-            //foreach(  var rr in r )
-            //    t.Resiver.Add(rr.Resiver);
-
-            //var usseerrssGRPC = from us in r
-            //                select new ResultGetUserSMS1()
-            //                {
-
-
-            //                    Body = us.Body,
-            //                    DateDelivere = Timestamp.FromDateTimeOffset(us.DateDelivere),
-            //                    Id = us.Id,
-            //                    IdUser = us.IdUser,
-            //                    DateSend= Timestamp.FromDateTimeOffset(us.DateSend),
-            //                    Status=us.Status,
-
-            //                }.Resiver.AddRange(us.Resiver);
-            var usseerrssGRPC = new List<ResultGetUserSMS1>();
-            foreach (var us in r)
-            {
-                var grpcitem = new ResultGetUserSMS1();
-                grpcitem.Body = us.Body;
-                grpcitem.DateDelivere = Timestamp.FromDateTimeOffset(us.DateDelivere);
-                grpcitem.Id = us.Id;
-                grpcitem.IdUser = us.IdUser;
-                grpcitem.DateSend = Timestamp.FromDateTimeOffset(us.DateSend);
-                grpcitem.Status = us.Status;
-                grpcitem.Resiver.AddRange(us.Resiver);
-                usseerrssGRPC.Add(grpcitem);
-            }
-            //== Mapper.ReferenceEquals(response, r);
-
-            response.Items.AddRange(usseerrssGRPC.ToArray());
+        //    //var usseerrssGRPC = from us in r
+        //    //                select new ResultGetUserSMS1()
+        //    //                {
 
 
+        //    //                    Body = us.Body,
+        //    //                    DateDelivere = Timestamp.FromDateTimeOffset(us.DateDelivere),
+        //    //                    Id = us.Id,
+        //    //                    IdUser = us.IdUser,
+        //    //                    DateSend= Timestamp.FromDateTimeOffset(us.DateSend),
+        //    //                    Status=us.Status,
 
-            return await Task.FromResult(response);
-        }
-        #endregion
+        //    //                }.Resiver.AddRange(us.Resiver);
+        //    var usseerrssGRPC = new List<ResultGetUserSMS1>();
+        //    foreach (var us in r)
+        //    {
+        //        var grpcitem = new ResultGetUserSMS1();
+        //        grpcitem.Body = us.Body;
+        //        grpcitem.DateDelivere = Timestamp.FromDateTimeOffset(us.DateDelivere);
+        //        grpcitem.Id = us.Id;
+        //        grpcitem.IdUser = us.IdUser;
+        //        grpcitem.DateSend = Timestamp.FromDateTimeOffset(us.DateSend);
+        //        grpcitem.Status = us.Status;
+        //        grpcitem.Resiver.AddRange(us.Resiver);
+        //        usseerrssGRPC.Add(grpcitem);
+        //    }
+        //    //== Mapper.ReferenceEquals(response, r);
+
+        //    response.Items.AddRange(usseerrssGRPC.ToArray());
+
+
+
+        //    return await Task.FromResult(response);
+        //}
+        //#endregion
 
 
 

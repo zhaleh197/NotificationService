@@ -112,3 +112,22 @@ C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git-firsstep\Notification\
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git-firsstep\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.pdb
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git-firsstep\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.genruntimeconfig.cache
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git-firsstep\Notification\Notification.Persistance\obj\Debug\net6.0\ref\Notification.Persistance.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Persistance.deps.json
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Persistance.runtimeconfig.json
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Persistance.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Persistance.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Application.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Domain.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Application.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\bin\Debug\net6.0\Notification.Domain.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.csproj.AssemblyReference.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.AssemblyInfoInputs.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.AssemblyInfo.cs
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.csproj.CopyComplete
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\refint\Notification.Persistance.dll
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.pdb
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\Notification.Persistance.genruntimeconfig.cache
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\Notification.Persistance\obj\Debug\net6.0\ref\Notification.Persistance.dll

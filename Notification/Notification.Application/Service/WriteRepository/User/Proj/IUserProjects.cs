@@ -13,6 +13,8 @@ namespace Notification.Application.Service.User.Proj
         public ProjModel GetprobyId(long id);
         public ProjModel GetprobyIdUser(long id);
         public List<ProjModel> GetAllPro();
+        public List<typeuserModel> Gettypeuser();
+        public List<typePackageModel> GetPackageTariff();
 
     }
 }

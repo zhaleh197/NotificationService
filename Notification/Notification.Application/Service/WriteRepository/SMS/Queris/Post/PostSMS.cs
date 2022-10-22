@@ -106,7 +106,7 @@ namespace Notification.Application.Service.SMS.Queris.Post
            //var khototUSer = _context.KhototUsers.Include(h => h.SarKhat).Where(i=>i.Id==request.IdKhatSend).FirstOrDefault();
            
             // string text = request.Body; 
-            string result = "";
+            string result = "Persian";
             //if (text.Any(c => c >= 0xFB50 && c <= 0xFEFC))
             //{
             //    result += "Arabic";
@@ -124,7 +124,7 @@ namespace Notification.Application.Service.SMS.Queris.Post
             {
                 result = "Persian";
             }
-            if (text.Any(c => c >= 0x20 && c <= 0x7E))
+            else if (text.Any(c => c >= 0x20 && c <= 0x7E))
             {
                 result = "English";
             }
@@ -200,7 +200,7 @@ namespace Notification.Application.Service.SMS.Queris.Post
             {
                 result = "Persian";
             }
-            if (text.Any(c => c >= 0x20 && c <= 0x7E))
+            else if (text.Any(c => c >= 0x20 && c <= 0x7E))
             {
                 result = "English";
             }
@@ -334,9 +334,10 @@ namespace Notification.Application.Service.SMS.Queris.Post
                     Txt=request.Body
                     
                 });
-
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
-
+           
+            //_context.SaveChangesAsync();
             //14040420 - and 14010610 . 
             foreach (var resiver in request.Resiver)
             {
@@ -356,8 +357,9 @@ namespace Notification.Application.Service.SMS.Queris.Post
                     
                     }
                 );
-
+               // _context.SaveChangesAsync();
                 _context.SaveChanges();
+               // _context.SaveChangesAsync();
             }
             //
             // 
@@ -404,6 +406,7 @@ namespace Notification.Application.Service.SMS.Queris.Post
         //    //return result;
         //    return 1;
         //}
+
 
 
     }

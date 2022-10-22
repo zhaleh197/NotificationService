@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "jq9COFoblJR92N6DEwlJ8/sXOU4JTmoRicm2jmxBqdU=",
+  "Hash": "sojaJSOjAUAByEx6IzefDpJ6Wa88Y3jMhWUYbPWeatk=",
   "Source": "ApacheKafkaConsumer2Demo",
   "BasePath": "_content/ApacheKafkaConsumer2Demo",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\ApacheKafkaProducerDemo\\ApacheKafkaProducerDemo.csproj",
+      "Identity": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\ApacheKafkaProducerDemo\\ApacheKafkaProducerDemo.csproj",
       "Version": 2,
       "Source": "ApacheKafkaProducerDemo",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",

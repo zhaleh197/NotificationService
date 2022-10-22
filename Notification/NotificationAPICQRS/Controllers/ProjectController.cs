@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Notification.Application.Service.User.Doc;
 using Notification.Application.Service.User.Proj;
 using Notification.Application.Service.WriteRepository.User.Kat;
 using Notification.Application.Service.WriteRepository.User.Kat.SarKhat; 
@@ -14,12 +15,14 @@ namespace NotificationAPICQRS.Controllers
     {
          
         private readonly IUserProjects _userProjects;
+        private readonly IUserDoc _userDoc;
         private readonly IKhat _khat;
         private readonly ISarKhat _sarKhat;
         private readonly ILogger<ProjectController> _logger;
-        public ProjectController(IUserProjects userProjects, ISarKhat sarKhat, IKhat khat, ILogger<ProjectController> logger)
+        public ProjectController(IUserProjects userProjects, IUserDoc userDoc, ISarKhat sarKhat, IKhat khat, ILogger<ProjectController> logger)
         {
             _userProjects = userProjects;
+            _userDoc = userDoc;
             _khat = khat;
              _sarKhat=sarKhat;
             _logger = logger;
@@ -116,13 +119,53 @@ namespace NotificationAPICQRS.Controllers
         public IActionResult getallkhat()
         {
             _logger.LogInformation("get all khat");
-            return Ok(_khat.GetAllKhatUsers());
+          return Ok(_khat.GetAllKhatUsers());
+             
         }
+        [HttpGet]
+        public IActionResult GetAllKhatOmoomi()
+        {
+            _logger.LogInformation("get all khat"); 
+            return Ok(_khat.GetAllKhatOmoomi());
+        }
+
+        [HttpGet]
+        public IActionResult GetAllKhatKhososiProperties()
+        {
+            _logger.LogInformation("get all khat");
+            return Ok(_khat.GetAllKhatKhososiProperties());
+          
+        }
+
+        [HttpGet]
+        public IActionResult GetKhatKhososibyJustLenghofkhat(int lenghofkhat)
+        {
+            _logger.LogInformation("get all khat");
+            return Ok(_khat.GetKhatKhososibyJustLenghofkhat(lenghofkhat));
+
+        }
+
+        [HttpGet]
+        public IActionResult GetKhatKhososibySarkhat(string sarkhat)
+        {
+            _logger.LogInformation("get all khat");
+            return Ok(_khat.GetKhatKhososibySarkhat(sarkhat));
+
+        }
+
+        [HttpGet]
+        public IActionResult GetPricekhossosibysarkhatandlenghNumber([FromBody]PriceKhatkhososiREquest priceKhatkhososiREquest)
+        {
+            _logger.LogInformation("get all khat");
+            return Ok(_khat.GetPricekhossosibysarkhatandlenghNumber(priceKhatkhososiREquest));
+
+        }
+
         [HttpGet("{id}")]
         public IActionResult getkhatbyiduser([FromRoute] long id)
         {
             _logger.LogInformation("get khat {0}", id);
-            return Ok(_khat.GetKhatbyIdUser(id));
+            return Ok(_khat.GetKhatbyIdUser(id)); 
         }
 
         [HttpGet("{id}")]
@@ -131,6 +174,30 @@ namespace NotificationAPICQRS.Controllers
             _logger.LogInformation("get khat by {0} pro", id);
             return Ok(_khat.GetKhatbyId(id));
         }
+
+        [HttpGet]
+        public IActionResult getalltypeDocs()
+        {
+            _logger.LogInformation("getgetalltypeDocs");
+            return Ok(_userDoc.getalltypeDocs());
+        }
+
+
+        [HttpGet]
+        public IActionResult getalltypeuser()
+        {
+            _logger.LogInformation("getgetalltypeDocs");
+            return Ok(_userProjects.Gettypeuser());
+        }
+
+
+        [HttpGet]
+        public IActionResult getalltypepackage()
+        {
+            _logger.LogInformation("getgetalltypeDocs");
+            return Ok(_userProjects.GetPackageTariff());
+        }
+
 
         // in mediator coded.
 

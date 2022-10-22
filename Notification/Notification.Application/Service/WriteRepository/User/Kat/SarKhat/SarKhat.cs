@@ -55,7 +55,9 @@ namespace Notification.Application.Service.WriteRepository.User.Kat.SarKhat
                 //UpdateTime = null
             });
 
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return t.Entity.Id;
         }
 
@@ -63,7 +65,9 @@ namespace Notification.Application.Service.WriteRepository.User.Kat.SarKhat
         {
 
             _context.SarKhats.Remove(_context.SarKhats.Where(d => d.Id == idpro).FirstOrDefault());
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return idpro;
         }
 

@@ -8516,11 +8516,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\ServerGRPCNotification\\ServerGRPCNotification.csproj",
+      "projectUniqueName": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\ServerGRPCNotification\\ServerGRPCNotification.csproj",
       "projectName": "ServerGRPCNotification",
-      "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\ServerGRPCNotification\\ServerGRPCNotification.csproj",
+      "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\ServerGRPCNotification\\ServerGRPCNotification.csproj",
       "packagesPath": "C:\\Users\\Tech-8\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\ServerGRPCNotification\\obj\\",
+      "outputPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\ServerGRPCNotification\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8541,11 +8541,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Application\\Notification.Application.csproj": {
-              "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Application\\Notification.Application.csproj"
+            "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Application\\Notification.Application.csproj": {
+              "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Application\\Notification.Application.csproj"
             },
-            "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Persistance\\Notification.Persistance.csproj": {
-              "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010519-Git\\Notification\\Notification.Persistance\\Notification.Persistance.csproj"
+            "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Persistance\\Notification.Persistance.csproj": {
+              "projectPath": "C:\\Users\\Tech-8\\source\\repos\\CQRSNOTIFICATION14010702-Git\\New folder\\Notification\\Notification.Persistance\\Notification.Persistance.csproj"
             }
           }
         }

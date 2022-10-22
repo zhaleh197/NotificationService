@@ -31,6 +31,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
        // private readonly IDistributedCache _cacheRedis;
 
         private readonly ChannelQueue<OnceMessage> _channelOnce;
+        private readonly ChannelQueue<OnceMessage2> _channelOnce2;
         private readonly ChannelQueue<WeeklyMessage> _channelWeekly;
         private readonly ChannelQueue<DailyMessage> _channelDaily;
         private readonly ChannelQueue<MounthlyMessage> _channelMounthly;
@@ -46,6 +47,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             ILogger<CheckQueueSMSWorker> logger,
             IServiceProvider serviceProvider
             , ChannelQueue<OnceMessage> channelOnce
+             , ChannelQueue<OnceMessage2> channelOnce2
             , ChannelQueue<HourlyMessage> channelhourly
             , ChannelQueue<DailyMessage> channelDaily
             , ChannelQueue<WeeklyMessage> channelWeekly
@@ -62,6 +64,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
             _channelDaily = channelDaily;
             _channelMounthly = channelMounthly;
             _channelOnce = channelOnce;
+            _channelOnce2 = channelOnce2;
             _channelhourly = channelhourly;
         }
         bool validation = false;
@@ -122,11 +125,15 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
 
                                 //insert in channelonce
                                 //the 1 approch/ this is true by chanel
+                                if(smsinq.IdTypeSMS==1)
+                                    await _channelOnce.AddToChannelAsync(new OnceMessage { IdSMSinQueu = smsinq.Id }, stoppingToken);
+                                else
+                                {
+                                    await _channelOnce2.AddToChannelAsync(new OnceMessage2 { IdSMSinQueu = smsinq.Id }, stoppingToken);
 
-                                await _channelOnce.AddToChannelAsync(new OnceMessage { IdSMSinQueu = smsinq.Id }, stoppingToken);
-
+                                }
                                 ////Kafka
-                                
+
                                 ////2 approch:
                                 ////felan 14010614
                                 ////Producer API= http://localhost:5126/api/Producer
@@ -138,7 +145,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                 //string jasonuser = JsonConvert.SerializeObject(new OrderRequest {topic=topic,Id=idSMSinKafka });
                                 //StringContent content = new StringContent(jasonuser, Encoding.UTF8, "application/json");
                                 //var usernew = _client.PostAsync("http://localhost:5126/api/Producer", content).Result;
-                                 
+
 
                             }
                             if (smsinq.PeriodSendly == "Hourly")

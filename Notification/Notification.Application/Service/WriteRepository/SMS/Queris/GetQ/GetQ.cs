@@ -20,17 +20,19 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
             if (res != null)
             {
                 _context.QeueofSMs.Remove(res);
+               // _context.SaveChangesAsync();
                 _context.SaveChanges();
+               // _context.SaveChangesAsync();
                 return res.Id;
             }
             return 0;
         }
         public List<ResponceGetQeueSMSmodel> GetQeueUserSMS()
         {
-            var res = _context.QeueofSMs.AsQueryable();
+            var res = _context.QeueofSMs.ToList();
             if (res != null)
             {
-                res.Select
+                var t=res.Select
                  (us => new ResponceGetQeueSMSmodel
                  {
                      DateOfsend = Convert.ToDateTime(us.DateOfsend).ToString(),
@@ -50,11 +52,12 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
                      Price = us.Price
 
                  }).ToList();
+                return t;
             }
             return null;
         }
 
-     
+       
 
         public ResponceGetQeueSMSmodel GetsSMSinQbyId(long Id)
         {
@@ -90,7 +93,9 @@ namespace Notification.Application.Service.WriteRepository.SMS.Queris.GetQ
 
             us.DateOfsend = dateESeralJadid.ToString();
             us.TimeOfsend = timeESeralJadid.ToString();
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
 
             return new ResponceGetQeueSMSmodel
             {

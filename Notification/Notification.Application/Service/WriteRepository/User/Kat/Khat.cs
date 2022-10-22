@@ -132,7 +132,9 @@ namespace Notification.Application.Service.WriteRepository.User.Kat
                             Type = t.Type
                         });
 
+                       // _context.SaveChangesAsync();
                         _context.SaveChanges();
+                       // _context.SaveChangesAsync();
                         return res.Entity.Id;
                     }
                     // }
@@ -151,7 +153,9 @@ namespace Notification.Application.Service.WriteRepository.User.Kat
                     if (Result != null)
                     {
                         Result.Statuse = true;
+                       // _context.SaveChangesAsync();
                         _context.SaveChanges();
+                       // _context.SaveChangesAsync();
                         return t.Id;
                     }
                 }
@@ -165,7 +169,9 @@ namespace Notification.Application.Service.WriteRepository.User.Kat
             if (resulr != null)
             {
                 _context.KhototUsers.Remove(resulr);
+               // _context.SaveChangesAsync();
                 _context.SaveChanges();
+               // _context.SaveChangesAsync();
                 return idpro;
             }
             return 0;

@@ -9,7 +9,7 @@ namespace Notification.Application.Service.SMS.Queris.Get
     public interface IGetSMS
     {
         public List<ResultGetUserSMS> GetUserSMS();
-
+        public ResultGetUserSMS GetUserSMSbyId(long id);
 
 
     }

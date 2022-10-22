@@ -1,5 +1,5 @@
 syntax = "proto3";
-//import "google/protobuf/timestamp.proto";
+import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "GrpcNotification";
 
@@ -11,8 +11,8 @@ service SMSGrpcs {
     rpc SendSMSGrpc (SMSRequest) returns (SMSresponse);
 
     //rpc GetQeueUserSMS(Empty) returns(ListResultGetQeueUserSMS1);
-   // rpc GetUserSMS(Empty) returns(ListResultGetUserSMS1);
-
+    //rpc GetUserSMS(Empty) returns(ListResultGetUserSMS1);
+    // rpc GetUserSMSbyId(IdUSer) returns(ListResultGetUserSMS1);
     //rpc Post(Product) returns(Product);
     //rpc Put(Product) returns(Product);
     //rpc Delete(ProductRowIdFilter) returns(Empty);
@@ -29,7 +29,10 @@ message SMSRequest {
 message SMSresponse {
   bool res  = 1;
 }
-/*
+message IdUSer{
+    int32 IdUser=1;
+}
+
 message ResultGetQeueUserSMS1 {
 
     int32 Id = 1; 
@@ -57,4 +60,3 @@ message ResultGetUserSMS1 {
 message ListResultGetUserSMS1 {
     repeated ResultGetUserSMS1 items =1;
 }
-*/

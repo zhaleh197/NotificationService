@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Protos\emailgrpc.proto" />
+    <None Remove="Protos\usergrpc.proto" />
   </ItemGroup>
 
   <!--<ItemGroup>
@@ -18,13 +19,15 @@
     <Protobuf Include="Protos\emailgrpc.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\smsgrpc.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\usergrpc.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.45.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.5" />
   </ItemGroup>
 
   <ItemGroup>

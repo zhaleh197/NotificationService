@@ -48,6 +48,7 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Backgro
                     await foreach (var item in _DocAddedlChannel.ReturnValue(stoppingToken))
                     {
                         var olduser = readRepository.GetByUSerIdAsync(item.IdTrans, stoppingToken);
+                        
                         var user = writeRepository.GetuserbyIduser(item.IdTrans, stoppingToken);
 
                         //    var filtr = Builders<SMSUser>.Filter.Eq("IdUser", user.IdUser);
@@ -58,8 +59,8 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Backgro
                         //await readRepository.EditrecordAsync(update, filtr, stoppingToken);
 
                         SMSUser newuser = new SMSUser {
-                            CreditFinance=user.CreditFinance 
-                        ,TitlePackage= user.PackageTariff.TitlePackage,
+                        CreditFinance=user.CreditFinance 
+                       ,TitlePackage= user.PackageTariff.TitlePackage,
                         CridetMeaasage=user.CridetMeaasage,
                         DocUser= olduser.Result.DocUser,
                         IdUser=user.IdUser,
@@ -69,6 +70,8 @@ namespace Notification.Application.ApplicationbyMediator.UserApplication.Backgro
                         TitleUsertype=olduser.Result.TitleUsertype,
                         ZaribTakhfif= user.PackageTariff.ZaridTakhfifPaciTareeffe
                         };
+
+
                         await readRepository.EditUser(newuser, user.IdUser, stoppingToken);
                  
                            

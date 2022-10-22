@@ -14,6 +14,7 @@ namespace Notification.Application.Service.User.Doc
         public DocModelresponse getDocpathbyIDUser(long iduser);
         public string getDocTypebyId(long id );
         public DocModelresponse getDocbyId(long id);
+        public List<Doctyp> getalltypeDocs();
         public List<DocModelresponse> getDocpathbyIDUserList(long iduser);
     }
 }

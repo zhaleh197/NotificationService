@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Notification.Application.ApplicationbyMediator.UserApplication.Commands;
 using Notification.Application.Interface.Context;
 using Notification.Domain.Entities.Common;
 using Notification.Domain.Entities.WriteModels.SMS.Common.Khat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Notification.Application.Service.User.Enroll
 {
@@ -54,19 +48,36 @@ namespace Notification.Application.Service.User.Enroll
 
             };
             _context.Users.Add(user);
+
+            // _context.SaveChangesAsync();
+            _context.Entry(user);
+           // _context.Entry<Users>(user).Reload();
             _context.SaveChanges();
-            _context.SaveChangesAsync();
+            _context.Entry(user);
+            _context.Entry<Users>(user).Reload();
+            // _context.SaveChangesAsync();
             return user.IdUser;
 
         }
         public Users GetuserbyIduser(long request, CancellationToken cancellationToken = default)
         {
             //  var res = _context.Users.Include(s => s.PackageTariff.PackageSMS).Include(s => s.Projects).Include(s => s.DocumentsUser).Include(s => s.USerType).Include(s => s.SMSUser).FirstOrDefault(r => r.IdUser == request);
-
+            
             var res = _context.Users.Include(s => s.PackageTariff).Include(s => s.DocumentsUser).Include(s => s.Transactions).Include(s => s.SMessageS).Include(s => s.KhototUser).Include(s => s.PatternSMs).Include(s => s.Tickets).FirstOrDefault(r => r.IdUser == request);
             //var res = _context.Users.FirstOrDefault(r => r.IdUser == request);
+
+
+            // _context.Entry(myUser).Reload();
+            //EntityEntry<TEntity> Entry<TEntity>(TEntity entity)
+
+            //_context.Entry<Users>(res).Reload();
+
             if (res != null)
+            {
+                _context.Entry(res);
+                //_context.Entry<Users>(res).Reload();
                 return res;
+            }
             else return null;
 
         }
@@ -74,8 +85,8 @@ namespace Notification.Application.Service.User.Enroll
         public string Gettypeofuser(long request)
         {
             var res = _context.Usertype.Where(r => r.Id == request).FirstOrDefault().Title;
-            if (res != null)
-                return res;
+            if (res != null) { _context.Entry(res); return res; }
+               
             else return null;
 
         }
@@ -83,8 +94,7 @@ namespace Notification.Application.Service.User.Enroll
         public string GetRoleofuser(long request)
         {
             var res = _context.Roles.Where(r => r.Id == request).FirstOrDefault().Title;
-            if (res != null)
-                return res;
+            if (res != null) { _context.Entry(res); return res; }
             else return null;
 
         }
@@ -93,9 +103,12 @@ namespace Notification.Application.Service.User.Enroll
         {
             var res = _context.KhototUsers.Where(r => r.IdUser == request).ToList();
             if (res != null)
+            {
+                _context.Entry(res); 
                 if (res.Count() > 0)
                     return res;
-                else return null;
+            }
+            else return null;
             return null;
         }
         //public List<string> GetKhototUserstring(long request)
@@ -114,8 +127,9 @@ namespace Notification.Application.Service.User.Enroll
             if (res != null)
             {
                 _context.Users.Remove(res);
+                // _context.SaveChangesAsync();
                 _context.SaveChanges();
-                _context.SaveChangesAsync();
+                // _context.SaveChangesAsync();
             }
             return request;
 
@@ -123,8 +137,20 @@ namespace Notification.Application.Service.User.Enroll
 
         public long EditUSer(Users user)
         {
+            _context.Entry(user);
+           // _context.Entry<Users>(user).Reload();
             _context.Users.Update(user);
+            _context.Entry(user);
+           // _context.Entry<Users>(user).Reload();
+
+            // _context.SaveChangesAsync();
+
             _context.SaveChanges();
+            _context.Entry(user);
+            _context.Entry<Users>(user).Reload();
+
+
+            // _context.SaveChangesAsync();
             return 1;
         }
 
@@ -136,8 +162,14 @@ namespace Notification.Application.Service.User.Enroll
             var res = _context.Users.Include(s => s.PackageTariff).Include(s => s.DocumentsUser).Include(s => s.Transactions).Include(s => s.SMessageS).Include(s => s.KhototUser).Include(s => s.PatternSMs).Include(s => s.Tickets).FirstOrDefault(r => r.IdUser == userid);
             if (res != null)
             {
-                res.CreditFinance = newprice;
+            
 
+                res.CreditFinance = newprice;
+                _context.Users.Update(res);
+                _context.Entry(res);
+                //_context.Entry<Users>(res).Reload();
+                _context.SaveChanges();
+                _context.Entry<Users>(res).Reload();
                 return res.IdUser;
             }
             return 0;
@@ -155,67 +187,85 @@ namespace Notification.Application.Service.User.Enroll
             return ProsList;
         }
 
-        public long EditPriceandMessageandpackage(long userid,long oldprice, long price )
+        public long EditPriceandMessageandpackage(long userid, long oldprice, long price)
         {
             var res = _context.Users.Include(s => s.PackageTariff).Include(s => s.DocumentsUser).Include(s => s.Transactions).Include(s => s.SMessageS).Include(s => s.KhototUser).Include(s => s.PatternSMs).Include(s => s.Tickets).FirstOrDefault(r => r.IdUser == userid);
+           
+            _context.Entry(res);
+            //_context.Entry<Users>(res).Reload();
+
 
             var newprice = oldprice + price;
-
-
-            var packages = Getallpackages();
-            double o = 0;
-            long idp = 0;
-            var gh = 77;//ghaymat base ba sarkhat 1000.
-
-            if (price > 0)
+            if (newprice > 0)
             {
-                int maxValue = (int)packages[0].PricePackage;
-                int maxIndex = 0;
-                for (int p = packages.Count - 1; p > 0; p--)
-                {
-                    if (maxValue <= packages[p].PricePackage)
-                    {
-                        maxValue = (int)packages[p].PricePackage;
-                        maxIndex = p;
-                    }
-                    if (newprice == packages[p].PricePackage)
-                    {
-                        idp = p; break;
-                    }
-                    else if (newprice < packages[p].PricePackage)
-                    {
-                        idp = p + 1; break;
-                    }
-                    else if (p == 1 && idp == 0)
-                    {
-                        maxIndex = p;
-                        idp = maxIndex;
-                    }
-
-                }
-                 o = packages[(int)idp].ZaridTakhfifPaciTareeffe;
-            }
-            else
-            {
-                  o = res.PackageTariff.ZaridTakhfifPaciTareeffe;
-            }
-            if (res != null)
-            {
-                var newmessage = Math.Ceiling((double)newprice / (o*gh));
-
-                res.CreditFinance = newprice;
+                var packages = Getallpackages();
+                double o = 0;
+                long idp = 0;
+                var gh = 77;//ghaymat base ba sarkhat 1000.
 
                 if (price > 0)
-                    res.IdPackageTariff = packages[(int)idp].Id;
-                //if (newprice <= 0)
-                //    res.IdPackageTariff = res.PackageTariff.Id;
+                {
+                    int maxValue = (int)packages[0].PricePackage;
+                    int maxIndex = 0;
+                    for (int p = packages.Count - 1; p > 0; p--)
+                    {
+                        if (maxValue <= packages[p].PricePackage)
+                        {
+                            maxValue = (int)packages[p].PricePackage;
+                            maxIndex = p;
+                        }
+                        if (newprice == packages[p].PricePackage)
+                        {
+                            idp = p; break;
+                        }
+                        else if (newprice < packages[p].PricePackage)
+                        {
+                            idp = p + 1; break;
+                        }
+                        else if (p == 1 && idp == 0)
+                        {
+                            maxIndex = p;
+                            idp = maxIndex;
+                        }
 
-                res.CridetMeaasage = Convert.ToInt64( newmessage);
-                _context.Users.Update(res);
+                    }
+                    o = packages[(int)idp].ZaridTakhfifPaciTareeffe;
+                }
+                else
+                {
+                    o = res.PackageTariff.ZaridTakhfifPaciTareeffe;
+                }
+                if (res != null)
+                {
+                    var newmessage = Math.Ceiling((double)newprice / (o * gh));
 
-                _context.SaveChanges();
+                    res.CreditFinance = newprice;
 
-                return res.IdUser;
+                    if (price > 0)
+                        res.IdPackageTariff = packages[(int)idp].Id;
+                    //if (newprice <= 0)
+                    //    res.IdPackageTariff = res.PackageTariff.Id;
+
+                    res.CridetMeaasage = Convert.ToInt64(newmessage);
+
+                    //1.
+                   // _context.Entry(res);
+                   // _context.Entry<Users>(res).Reload();
+
+                    _context.Users.Update(res); 
+                    _context.Entry(res); 
+                 
+                    //2.
+
+                    // _context.SaveChangesAsync();
+                    _context.SaveChanges();
+                    _context.Entry(res);
+                    _context.Entry<Users>(res).Reload();
+                    // _context.SaveChangesAsync(); 
+                    var res1MODIFIED = _context.Users.Include(s => s.PackageTariff).Include(s => s.DocumentsUser).Include(s => s.Transactions).Include(s => s.SMessageS).Include(s => s.KhototUser).Include(s => s.PatternSMs).Include(s => s.Tickets).FirstOrDefault(r => r.IdUser == userid);
+
+                    return res.IdUser;
+                }
             }
             return 0;
         }

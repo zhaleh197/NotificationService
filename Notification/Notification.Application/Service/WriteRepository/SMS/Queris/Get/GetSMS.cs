@@ -124,7 +124,8 @@ namespace Notification.Application.Service.SMS.Queris.Get
                         TypeofResiver = s.TypeofResiver
                     }).ToList()
 
-            }).ToList();
+            }
+            ).ToList();
 
             ////var config = new MapperConfiguration(cfg =>
             ////    cfg.CreateMap<List<SMSUser>, List<ResultGetUserSMS>>()
@@ -136,6 +137,39 @@ namespace Notification.Application.Service.SMS.Queris.Get
 
             //AutoMapper();
             return res;
+        }
+        public ResultGetUserSMS GetUserSMSbyId(long id)
+        {
+
+            var us = _context.SMessageS.Where(g => g.Id == id).FirstOrDefault();
+            var usersms = new ResultGetUserSMS
+            {
+                Body = us.Txt,
+                Status = us.SMS_Resivers.Where(s => s.IdSMS == us.Id).FirstOrDefault().SendStatus,
+                DateOfsend = us.DateOfsend,
+                CountSms = us.CountSms,
+                DateofLimitet = us.DateofLimitet,
+                KhatSend = us.KhatSend,
+                IdTypeSMS = us.IdTypeSMS,
+                PeriodSendly = us.PeriodSendly,
+                Price = us.Price,
+                TimeOfsend = us.TimeOfsend,
+                Id = us.Id,
+                IdUser = us.IdUser,
+                // Resiver = us.SMS_Resivers.Where(s=>s.IdSMS==us.Id).ToList().Select(s=>s.Resiver).ToList(),//14010413 // get all resiver from table SMS_Resivers
+                Resivers = us.SMS_Resivers.Where(s => s.IdSMS == us.Id).ToList().Select(
+                    s => new ResiverClas
+                    {
+                        DateDelivered = s.DateDelivered,
+                        DateSended = s.DateSended,
+                        Deliverd = s.Deliverd,
+                        Resiver = s.Resiver,
+                        SendStatus = s.SendStatus,
+                        TypeofResiver = s.TypeofResiver
+                    }).ToList()
+
+            }; 
+            return usersms;
         }
     }
 }

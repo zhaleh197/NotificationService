@@ -1,0 +1,156 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ServerGRPCNotification";
+ 
+package userGrpc;
+
+service UserGrpc {
+  // Sends a greeting
+    rpc Enroll (UserEnrollRequest) returns (IdObject);
+    rpc GetUserById (IdObject) returns (GetUserByIdResponce);
+    rpc DeleteUSer (IdObject) returns (IdObject);
+    rpc AddDoc (AddDocGrpcRequest) returns (IdObject);
+    rpc AddTransaction (AddTransactionGRPCRequest) returns (IdObject);
+    rpc DeleteDoc (DeleteDocGrpcRequest) returns (IdObject);
+
+    rpc AddKhat (AddKhatGRPCRequest) returns (IdObject);
+    rpc Deletekhat (DeletKhatGRPCRequest) returns (IdObject);
+
+    rpc SendSMS (AddSMSinQGRPCRequest) returns (AddSMSinQGRPCResponse);
+}
+
+message AddKhatGRPCRequest  
+    {
+        int64 IdUser =1;
+        int64 IdTransaction=2;
+        int64 LineNumber=3;
+        int32 IdSarKhat=4;//link be sarkhat ha
+        bool Statuse=5;//Active-notAvtive
+        bool Type=6;//0==Omoomi . 1= Khososi 
+        string DedlineKhat=7;//DateTime DedlineKhat { get; set; }// = insert time(NOW) year+1. baraye omoomi =null - baraye khososi = yek sal.
+    }
+message DeletKhatGRPCRequest 
+    {
+        int64 idkhat=1;
+        int64 idUser=2;
+    }
+
+message AddSMSinQGRPCRequest
+{
+    Message message=1;
+    UserOfSMS userOfSMS=2;
+    SchaduleSendSMS schaduleSendSMS=3;
+}
+message AddSMSinQGRPCResponse
+{
+    repeated int64 idqeueSMS=1;
+}
+message Message {
+    string txt=1;
+    repeated string to=2;
+    bool TypeofResiver=3;//0 =number . 1 = Userid
+    int64 IdTypeSMS=4;// for Periority
+    int64 KhatSend=5;
+}
+message UserOfSMS {
+     int64 Iduser=1;
+    string PhoneUser=2;
+}
+message SchaduleSendSMS{
+    string dateOfsend =1;
+    string timeOfsend=2;//but only time
+    string dateofLimitet=3;//DateTime dateofLimitet { get; set; }
+    int32 periority=4;//hidh-normal
+    string periodSendly=5;
+ 
+}
+
+
+
+message DeleteDocGrpcRequest
+{
+
+    int64 idDoc=1;
+    int64 idUser=2;
+}
+message AddTransactionGRPCRequest
+{
+        int64 IdUser=1;
+        string TitleTransaction=2;
+        int64 price=3;
+        bool IsDone=4;//1= انجام شد. 2= انجام نشد.
+        string CodeRahgiriPardakht=5; 
+        string TimeTransaction=6;//DateTime TimeTransaction { get; set; }
+        string Discription=7;
+}
+
+message AddDocGrpcRequest{
+    int64 id=1;
+    int64 idUser=2;
+    int64 idDocumentType=3;
+    string base64imagopDoc=4;
+    bool Confirmcheck=5;
+}
+message UserEnrollRequest {
+    int32 IdUser=1;
+    string Phone=2;
+    int32 IdRole=3;//baraye kam kardane pichidegi
+    int32 IdUsertype=4;
+    int32 CreditFinance=5;//Etebar// Mr Nazari saied here isnt any things of Wallet to save in here.
+    int32 CridetMeaasage=6;// 100 message 
+}
+
+ message IdObject{ //message UserEnrollresponse {
+    int64 Id  = 1;
+}
+
+
+message GetUserByIdResponce {
+    string Id =1;
+    int64 IdUser=2;
+    string Phone=3;
+    string Role =4;
+    string TitleUsertype =5;// haghigghi / hoghooghi
+    string TitlePackage =6; //طلایی-نقره ای- برنزی
+        //
+    double ZaribTakhfif =7;
+        //
+    int64 CreditFinance=8;// موجودی حساب
+    int64  CridetMeaasage=9;// موجودی پیام
+        //از انجا که مونگودی بی مانند دیتابیس های رابطه ای نسیت.
+        //باید از اول مقادیری که ممکن است خالی باشند را اضافه نکنیم.
+        //هر جا هر کاربر این مقادیر را اضافه کرد تنها برای ان کار بر اضافه میشود.
+    repeated KhototUSergrpc KhototUser=10;
+    repeated Docclasgrpc DocUser =11;
+}
+
+message KhototUSergrpc
+{
+    int64 id =1;
+    int64 KhatNumber =2;
+    repeated Sarkhatgrpc SarKhat =3;
+    bool Type =4;//0==Omoomi . 1= Khososi
+    bool Statuse =5;//Active-notAvtive
+    string DedlineKhat =6; //DateTime DedlineKhat =6;// = insert time(NOW) year+1. baraye omoomi =null - baraye khososi = yek sal.
+
+}
+message Docclasgrpc{
+    int64 id =1;
+    string PathofSave =2;
+    bool Confirmcheck =3;//1 taiid 0 bad
+    string TypeofDoc =4;
+}
+
+message Sarkhatgrpc
+{
+    int32 Spacial =1;//public-spacial== public string Type { get; set; }//public-spacial
+    string SarKhatNumber=2;//==1000,2000,3000,... 
+    double BasePrice =3;//هزینه پایه یک پیامک فارسی=77
+    double PersianZarib =4;
+    double EnglishZarib=5;
+    double IranselZarib=6;
+    double HamrahAvalZarib =7;
+    double RaytelZarib =8;
+    double TejasriLinkZarib =9;
+}
+ 

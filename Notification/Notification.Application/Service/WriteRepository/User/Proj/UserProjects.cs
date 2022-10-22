@@ -54,7 +54,9 @@ namespace Notification.Application.Service.User.Proj
                 IdKhototUser=pro.IdKhat
             });
 
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return t.Entity.Id;
         }
 
@@ -62,10 +64,36 @@ namespace Notification.Application.Service.User.Proj
         {
 
             _context.Projects.Remove(_context.Projects.Where(d => d.Id == iddoc).FirstOrDefault());
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return iddoc;
         }
 
-         
+        public List<typeuserModel> Gettypeuser()
+        {
+            var t = _context.Usertype.Where(p => p.IsRemoved == false).ToList();
+            var ProsList = t.Select(p => new typeuserModel
+            {
+                Title=p.Title,
+                Id = p.Id
+            }).ToList();
+            return ProsList;
+        }
+
+        public List<typePackageModel> GetPackageTariff()
+        {
+            var t = _context.PackageTariff.Where(p => p.IsRemoved == false).ToList();
+            var ProsList = t.Select(p => new typePackageModel
+            {
+                Titlepack = p.TitlePackage,
+                Id = p.Id,
+                Pricepack=p.PricePackage,
+                Zaribtakhfif=p.ZaridTakhfifPaciTareeffe
+            }).ToList();
+            return ProsList;
+        }
+        
+
     }
 }

@@ -22,4 +22,10 @@ namespace Notification.Application.Service.User.Doc
         public bool Confirmcheck { get; set; }
           
     }
+    public class Doctyp
+    {
+        public long id { get; set; }
+        public string title { get; set; }
+
+    }
 }

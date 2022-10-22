@@ -14,7 +14,9 @@ namespace Notification.Application.Service.User.Doc
         public bool ConfirmDoc(long iddoc, bool conORuncon)
         {
             _context.DocumentsUser.Where(d => d.Id == iddoc).FirstOrDefault().Confirmcheck = conORuncon;
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return conORuncon;
         }
 
@@ -49,14 +51,18 @@ namespace Notification.Application.Service.User.Doc
             var result = _context.DocumentsUser.Add(d);
 
 
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             //_context.SaveChangesAsync();
             return result.Entity.Id;
         }
         public long DeletDoc(long iddoc)
         {
             _context.DocumentsUser.Remove(_context.DocumentsUser.Where(d => d.Id == iddoc).FirstOrDefault());
+           // _context.SaveChangesAsync();
             _context.SaveChanges();
+           // _context.SaveChangesAsync();
             return iddoc;
 
         }
@@ -71,6 +77,22 @@ namespace Notification.Application.Service.User.Doc
         public string getDocTypebyId(long id)
         {
             return _context.DocumentType.Where(d => d.Id == id).FirstOrDefault().Title;
+
+        }
+
+
+        public List<Doctyp> getalltypeDocs()
+        {
+            var t= _context.DocumentType.ToList();
+
+            //var res = _context.Users.Include(s => s.PackageTariff.PackageSMS).Include(s => s.Projects).Include(s => s.DocumentsUser).Include(s => s.USerType).Include(s => s.SMSUser).FirstOrDefault(r => r.IdUser == request);
+
+            var typeDocsList = t.Select(p => new Doctyp
+            {
+                id = p.Id,
+                title=p.Title
+            }).ToList();
+            return typeDocsList;
 
         }
 

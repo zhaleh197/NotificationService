@@ -134,11 +134,11 @@ C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\ApacheKaf
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\ApacheKafkaConsumerDemo\obj\Debug\net6.0\ApacheKafkaConsumerDemo.pdb
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\ApacheKafkaConsumerDemo\obj\Debug\net6.0\ApacheKafkaConsumerDemo.genruntimeconfig.cache
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010519-Git\Notification\ApacheKafkaConsumerDemo\obj\Debug\net6.0\ref\ApacheKafkaConsumerDemo.dll
-C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\appsettings.json
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\ApacheKafkaProducerDemo.deps.json
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\ApacheKafkaProducerDemo.runtimeconfig.json
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\ApacheKafkaProducerDemo.exe
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\appsettings.json
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\ApacheKafkaConsumerDemo.exe
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\ApacheKafkaConsumerDemo.deps.json
 C:\Users\Tech-8\source\repos\CQRSNOTIFICATION14010702-Git\New folder\Notification\ApacheKafkaConsumerDemo\bin\Debug\net6.0\ApacheKafkaConsumerDemo.runtimeconfig.json

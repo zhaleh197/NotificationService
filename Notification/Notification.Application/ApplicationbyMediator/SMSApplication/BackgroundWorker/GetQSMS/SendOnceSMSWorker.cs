@@ -6,12 +6,15 @@ using Newtonsoft.Json;
 using Notification.Application.ApplicationbyMediator.Common.BaseChannel;
 using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.Common.Events;
 using Notification.Application.ApplicationbyMediator.SMSApplication.BackgroundWorker.Common.Kafka;
+using Notification.Application.ApplicationbyMediator.UserApplication.BackgroundWorker.Common.Events.TransactionEvent;
 using Notification.Application.Service.ReadRepository.User;
 using Notification.Application.Service.SMS.Commands;
+using Notification.Application.Service.SMS.Queris.Get;
 using Notification.Application.Service.SMS.Queris.Post;
 using Notification.Application.Service.User.Enroll;
 using Notification.Application.Service.WriteRepository.SMS.Queris.GetQ;
 using Notification.Application.Service.WriteRepository.User.Kat;
+using Notification.Application.Service.WriteRepository.User.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -26,8 +29,8 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
     {
 
         private readonly ChannelQueue<SMSAddedinQueue> _checkQueueSMSModelChannel;
-
         private readonly ChannelQueue<OnceMessage> _channeloncesendSMS;
+        private readonly ChannelQueue<TransactionAdd> _channeladdtransactin;
 
         private readonly ILogger<SendOnceSMSWorker> _logger;
         private readonly IServiceProvider _serviceProvider;
@@ -35,12 +38,14 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
         PriorityQueue<long, int> priorityQueueSMSSend = new PriorityQueue<long, int>();
         public SendOnceSMSWorker(
             ChannelQueue<OnceMessage> channeloncesendSMS,
+            ChannelQueue<TransactionAdd>  channeladdtransactin,
             ILogger<SendOnceSMSWorker> logger,
-            IServiceProvider serviceProvider
-            , ChannelQueue<SMSAddedinQueue> checkQueueSMSModelChannel
+            IServiceProvider serviceProvider, 
+            ChannelQueue<SMSAddedinQueue> checkQueueSMSModelChannel
             )
         {
             _checkQueueSMSModelChannel = checkQueueSMSModelChannel;
+            _channeladdtransactin = channeladdtransactin;
             _channeloncesendSMS = channeloncesendSMS;
             _logger = logger;
             _serviceProvider = serviceProvider;
@@ -78,12 +83,13 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                 using var scope = _serviceProvider.CreateScope();
 
                 var getQ = scope.ServiceProvider.GetRequiredService<IGetQ>();
-
+                var GetSMS = scope.ServiceProvider.GetRequiredService<IGetSMS>();
                 var postSMS = scope.ServiceProvider.GetRequiredService<IPostSMS>();
+                var userTransactin = scope.ServiceProvider.GetRequiredService<ITransactionss>();
+                
+          var UserLocal = scope.ServiceProvider.GetRequiredService<ILocalUser>();
 
-                // var UserLocal = scope.ServiceProvider.GetRequiredService<ILocalUser>();
-
-                var Katf = scope.ServiceProvider.GetRequiredService<IKhat>();
+        var Katf = scope.ServiceProvider.GetRequiredService<IKhat>();
                 var _iSMSService = scope.ServiceProvider.GetRequiredService<ISMSService>();
                 var readRepository = scope.ServiceProvider.GetRequiredService<ReadSMSUser>();
                 PriorityQueue<long, int> priorityQueueSMSSend = new PriorityQueue<long, int>();
@@ -149,7 +155,7 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                             var resultSend = _iSMSService.SMSFF(new SMSSendRequest { sender = smsinq.KhatSend.ToString(), to = smsinq.to, txt = smsinq.txt });
 
                                             //2. add in sms Table  
-                                            postSMS.PostUserSMS(new RequestPostSMS.RequestSendSMS { 
+                                            var idsMes=postSMS.PostUserSMS(new RequestPostSMS.RequestSendSMS { 
                                                 Body = smsinq.txt,
                                                 Resiver = new List<string> { smsinq.to.ToString() },
                                                 IdUser = smsinq.IdUser, 
@@ -167,6 +173,32 @@ namespace Notification.Application.ApplicationbyMediator.SMSApplication.Backgrou
                                             });
                                             //3. delete from Queu 
                                             getQ.DeleteSMSinQbyId(smsinq.Id);
+
+
+                                            //4. update price of users 
+                                            //////////////////////////////////////////////////////////////////////
+                                            //1. addtranscation
+                                            var ssss =GetSMS.GetUserSMSbyId(idsMes); 
+
+                                            var command = userTransactin.AddTransaction(new TransactionModel
+                                            {
+                                                IdUser = ssss.IdUser,
+                                                CodeRahgiriPardakht ="123",
+                                                Discription = "ارسال پیامک",
+                                                IsDone = true,
+                                                NewCriditUser = user.CreditFinance+(long) ssss.Price,
+                                                price = -(long)ssss.Price,
+                                                TimeTransaction = DateTime.Now,
+                                                TitleTransaction ="ارسال پیامک"
+                                            });
+                                            //2. upgate price in user 
+                                            //1. in sql
+                                            var IdEditedUser = UserLocal.EditPriceandMessageandpackage(ssss.IdUser, user.CreditFinance, -(long)ssss.Price);
+                                            //2.in mongo 
+                                            await _channeladdtransactin.AddToChannelAsync(new TransactionAdd { IdTrans = IdEditedUser }, stoppingToken);
+                                            
+
+                                            //////////////////////////////////////////////////////////////////////
 
                                         }
                                         else if (resultdaghighTim < 0)//<

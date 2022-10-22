@@ -20,4 +20,19 @@ namespace Notification.Application.Service.User.Proj
         public string Description { get; set; }
         public long IdKhat { get; set; }
     }
+
+    public class typeuserModel
+    {
+        public long Id  { get; set; }
+        public string Title  { get; set; }
+
+    }
+    public class typePackageModel
+    {
+        public long Id { get; set; }
+        public string Titlepack { get; set; }
+        public long Pricepack { get; set; }
+        public double Zaribtakhfif { get; set; }
+    }
+    
 }

@@ -9,12 +9,14 @@
   <ItemGroup>
     <None Remove="Protos\emailgrpc.proto" />
     <None Remove="Protos\smsgrpc.proto" />
+    <None Remove="Protos\usergrpc.proto" />
   </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="Protos\emailgrpc.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\smsgrpc.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\usergrpc.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +44,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Notification.Application\Notification.Application.csproj" />
     <ProjectReference Include="..\Notification.Persistance\Notification.Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Uploads\" />
   </ItemGroup>
 
 </Project>
